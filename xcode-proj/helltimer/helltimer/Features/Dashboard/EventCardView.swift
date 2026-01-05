@@ -75,14 +75,12 @@ struct EventCardView: View {
                     }
                 }
 
-                if !worldBoss.isFromAPI {
-                    HStack {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(.orange)
-                        Text("예상 시간 (오프라인)")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
+                HStack {
+                    Image(systemName: "clock.arrow.circlepath")
+                        .foregroundStyle(.secondary)
+                    Text("다음 스폰 시각")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             }
 
