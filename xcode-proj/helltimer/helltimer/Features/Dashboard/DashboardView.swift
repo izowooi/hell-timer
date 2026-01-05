@@ -56,15 +56,6 @@ struct DashboardView: View {
                         .background(.ultraThinMaterial)
                 }
             }
-            .alert("오류", isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button("확인") {
-                    viewModel.errorMessage = nil
-                }
-            } message: {
-                if let error = viewModel.errorMessage {
-                    Text(error)
-                }
-            }
         }
         .task {
             await viewModel.refresh()

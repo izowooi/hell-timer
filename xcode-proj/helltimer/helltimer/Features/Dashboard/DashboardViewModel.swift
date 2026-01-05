@@ -13,7 +13,6 @@ final class DashboardViewModel: ObservableObject {
     @Published var legionEvent: LegionEvent
     @Published var worldBossEvent: WorldBossEvent
     @Published var isLoading = false
-    @Published var errorMessage: String?
     @Published var lastUpdated = Date()
 
     // MARK: - Private Properties
@@ -46,7 +45,6 @@ final class DashboardViewModel: ObservableObject {
     /// 이벤트 정보 새로고침
     func refresh() async {
         isLoading = true
-        errorMessage = nil
 
         // API에서 월드보스 정보 가져오기
         await fetchWorldBossFromAPI()
@@ -119,8 +117,8 @@ final class DashboardViewModel: ObservableObject {
                 )
             }
         } catch {
-            errorMessage = "월드보스 정보를 가져올 수 없습니다"
-            print("API Error: \(error)")
+            // API 실패 시 조용히 fallback 로직 사용 (경고 표시 안함)
+            print("World Boss API failed, using fallback: \(error)")
         }
     }
 
