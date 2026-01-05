@@ -11,10 +11,6 @@ struct SettingsView: View {
     @State private var legionNotification: Bool = false
     @State private var worldBossNotification: Bool = false
     @State private var selectedMinutes: Set<Int> = []
-    @State private var legionAnchorTime: Date = Date()
-    @State private var worldBossAnchorTime: Date = Date()
-    @State private var hasLegionAnchor: Bool = false
-    @State private var hasWorldBossAnchor: Bool = false
     @State private var showingPermissionAlert: Bool = false
 
     var body: some View {
@@ -120,86 +116,6 @@ struct SettingsView: View {
                     Text("알림 시간")
                 } footer: {
                     Text("이벤트 시작 전 알림을 받을 시간을 선택하세요 (다중 선택 가능)")
-                }
-
-                // MARK: - 군단 앵커 타임
-                Section {
-                    Toggle("앵커 타임 사용", isOn: $hasLegionAnchor)
-
-                    if hasLegionAnchor {
-                        DatePicker(
-                            "마지막 군단 시간",
-                            selection: $legionAnchorTime,
-                            displayedComponents: [.date, .hourAndMinute]
-                        )
-
-                        Button("현재 시간으로 설정") {
-                            legionAnchorTime = Date()
-                        }
-                    }
-                } header: {
-                    Label("군단 이벤트", systemImage: EventType.legion.iconName)
-                        .foregroundStyle(EventType.legion.color)
-                } footer: {
-                    Text("마지막으로 군단 이벤트를 본 시간을 입력하면 25분 주기로 다음 이벤트를 계산합니다")
-                }
-
-                // MARK: - 월드보스 앵커 타임
-                Section {
-                    Toggle("앵커 타임 사용 (Fallback)", isOn: $hasWorldBossAnchor)
-
-                    if hasWorldBossAnchor {
-                        DatePicker(
-                            "마지막 월드보스 시간",
-                            selection: $worldBossAnchorTime,
-                            displayedComponents: [.date, .hourAndMinute]
-                        )
-
-                        Button("현재 시간으로 설정") {
-                            worldBossAnchorTime = Date()
-                        }
-                    }
-                } header: {
-                    Label("월드보스", systemImage: EventType.worldBoss.iconName)
-                        .foregroundStyle(EventType.worldBoss.color)
-                } footer: {
-                    Text("API 연결이 안 될 때 사용됩니다. 마지막 월드보스 시간을 입력하면 3.5시간 주기로 계산합니다")
-                }
-
-                // MARK: - 캐시 정보
-                if let lastFetch = repository.settings.lastAPIFetchTime {
-                    Section {
-                        HStack {
-                            Text("마지막 API 동기화")
-                            Spacer()
-                            Text(formatDate(lastFetch))
-                                .foregroundStyle(.secondary)
-                        }
-
-                        if let bossName = repository.settings.cachedWorldBossName {
-                            HStack {
-                                Text("보스")
-                                Spacer()
-                                Text(bossName)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-
-                        if let location = repository.settings.cachedWorldBossLocation {
-                            HStack {
-                                Text("위치")
-                                Spacer()
-                                Text(location)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-
-                        Button("캐시 초기화", role: .destructive) {
-                            repository.clearWorldBossCache()
-                        }
-                    } header: {
-                        Text("캐시된 데이터")
-                    }
                 }
 
                 // MARK: - 앱 정보
@@ -342,16 +258,6 @@ struct SettingsView: View {
         legionNotification = settings.legionNotificationEnabled
         worldBossNotification = settings.worldBossNotificationEnabled
         selectedMinutes = Set(settings.notificationMinutesBefore)
-
-        if let anchor = settings.legionAnchorTime {
-            hasLegionAnchor = true
-            legionAnchorTime = anchor
-        }
-
-        if let anchor = settings.worldBossAnchorTime {
-            hasWorldBossAnchor = true
-            worldBossAnchorTime = anchor
-        }
     }
 
     private func saveSettings() {
@@ -359,9 +265,6 @@ struct SettingsView: View {
         repository.setLegionNotification(enabled: legionNotification)
         repository.setWorldBossNotification(enabled: worldBossNotification)
         repository.setNotificationMinutes(Array(selectedMinutes).sorted())
-
-        repository.setLegionAnchorTime(hasLegionAnchor ? legionAnchorTime : nil)
-        repository.setWorldBossAnchorTime(hasWorldBossAnchor ? worldBossAnchorTime : nil)
 
         // 알림 업데이트
         notificationManager.onSettingsChanged()
@@ -384,12 +287,6 @@ struct SettingsView: View {
             await notificationManager.removeAllNotifications()
             await notificationManager.updatePendingNotifications()
         }
-    }
-
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd HH:mm"
-        return formatter.string(from: date)
     }
 }
 
