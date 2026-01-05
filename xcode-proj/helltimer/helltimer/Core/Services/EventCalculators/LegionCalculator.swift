@@ -27,10 +27,12 @@ final class LegionCalculator {
     func getNextEvent(anchorTime: Date, at date: Date = Date()) -> LegionEvent {
         let nextEventTime = calculateNextEventTime(anchorTime: anchorTime, from: date)
         let isActive = checkIfActive(nextEventTime: nextEventTime, at: date)
+        let timeRemaining = max(0, nextEventTime.timeIntervalSince(date))
 
         return LegionEvent(
             nextEventTime: nextEventTime,
-            isActive: isActive
+            isActive: isActive,
+            timeRemaining: timeRemaining
         )
     }
 

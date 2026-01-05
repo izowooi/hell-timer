@@ -36,46 +36,55 @@ final class WorldBossCalculator {
     ) -> WorldBossEvent {
         // 1. 캐시된 API 데이터가 있고 아직 유효한 경우
         if let cachedSpawnTime = cachedSpawnTime, cachedSpawnTime > date {
+            let timeRemaining = max(0, cachedSpawnTime.timeIntervalSince(date))
             return WorldBossEvent(
                 nextEventTime: cachedSpawnTime,
                 isActive: false,
                 bossName: cachedBossName,
                 location: cachedLocation,
-                isFromAPI: true
+                isFromAPI: true,
+                timeRemaining: timeRemaining
             )
         }
 
         // 2. 캐시된 API 데이터를 기반으로 다음 스폰 시간 계산
         if let cachedSpawnTime = cachedSpawnTime {
             let nextEventTime = calculateNextEventTime(anchorTime: cachedSpawnTime, from: date)
+            let timeRemaining = max(0, nextEventTime.timeIntervalSince(date))
             return WorldBossEvent(
                 nextEventTime: nextEventTime,
                 isActive: false,
                 bossName: nil, // 다음 보스는 알 수 없음
                 location: nil,
-                isFromAPI: false
+                isFromAPI: false,
+                timeRemaining: timeRemaining
             )
         }
 
         // 3. Fallback: 앵커 타임 기반 계산
         if let anchorTime = anchorTime {
             let nextEventTime = calculateNextEventTime(anchorTime: anchorTime, from: date)
+            let timeRemaining = max(0, nextEventTime.timeIntervalSince(date))
             return WorldBossEvent(
                 nextEventTime: nextEventTime,
                 isActive: false,
                 bossName: nil,
                 location: nil,
-                isFromAPI: false
+                isFromAPI: false,
+                timeRemaining: timeRemaining
             )
         }
 
         // 4. 데이터 없음: 기본값 반환 (현재 시간 + 3.5시간)
+        let nextEventTime = date.addingTimeInterval(Self.intervalSeconds)
+        let timeRemaining = Self.intervalSeconds
         return WorldBossEvent(
-            nextEventTime: date.addingTimeInterval(Self.intervalSeconds),
+            nextEventTime: nextEventTime,
             isActive: false,
             bossName: nil,
             location: nil,
-            isFromAPI: false
+            isFromAPI: false,
+            timeRemaining: timeRemaining
         )
     }
 
@@ -122,23 +131,27 @@ extension WorldBossCalculator {
 
         // 스폰 시간이 미래인 경우
         if spawnDate > date {
+            let timeRemaining = max(0, spawnDate.timeIntervalSince(date))
             return WorldBossEvent(
                 nextEventTime: spawnDate,
                 isActive: false,
                 bossName: latestReport.name,
                 location: latestReport.location,
-                isFromAPI: true
+                isFromAPI: true,
+                timeRemaining: timeRemaining
             )
         }
 
         // 스폰 시간이 과거인 경우, 다음 스폰 시간 계산
         let nextSpawnTime = calculateNextEventTime(anchorTime: spawnDate, from: date)
+        let timeRemaining = max(0, nextSpawnTime.timeIntervalSince(date))
         return WorldBossEvent(
             nextEventTime: nextSpawnTime,
             isActive: false,
             bossName: nil, // 다음 보스는 알 수 없음
             location: nil,
-            isFromAPI: false
+            isFromAPI: false,
+            timeRemaining: timeRemaining
         )
     }
 }

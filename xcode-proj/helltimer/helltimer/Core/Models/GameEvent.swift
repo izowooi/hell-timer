@@ -44,10 +44,16 @@ struct LegionEvent: GameEvent {
     let eventType: EventType = .legion
     let nextEventTime: Date
     let isActive: Bool
+    let timeRemaining: TimeInterval // 남은 시간 (초)
 
-    init(nextEventTime: Date, isActive: Bool = false) {
+    init(nextEventTime: Date, isActive: Bool = false, timeRemaining: TimeInterval? = nil) {
         self.nextEventTime = nextEventTime
         self.isActive = isActive
+        self.timeRemaining = timeRemaining ?? max(0, nextEventTime.timeIntervalSinceNow)
+    }
+
+    var timeUntilNext: TimeInterval {
+        timeRemaining
     }
 }
 
@@ -61,13 +67,19 @@ struct WorldBossEvent: GameEvent {
     let bossName: String?
     let location: String?
     let isFromAPI: Bool // API에서 가져온 정보인지 여부
+    let timeRemaining: TimeInterval // 남은 시간 (초)
 
-    init(nextEventTime: Date, isActive: Bool = false, bossName: String? = nil, location: String? = nil, isFromAPI: Bool = false) {
+    init(nextEventTime: Date, isActive: Bool = false, bossName: String? = nil, location: String? = nil, isFromAPI: Bool = false, timeRemaining: TimeInterval? = nil) {
         self.nextEventTime = nextEventTime
         self.isActive = isActive
         self.bossName = bossName
         self.location = location
         self.isFromAPI = isFromAPI
+        self.timeRemaining = timeRemaining ?? max(0, nextEventTime.timeIntervalSinceNow)
+    }
+
+    var timeUntilNext: TimeInterval {
+        timeRemaining
     }
 
     /// 알려진 월드보스 목록
