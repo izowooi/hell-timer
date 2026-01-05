@@ -65,9 +65,8 @@ final class SharedDataManager {
             remainingActiveSeconds: helltideStatus.remainingActiveTime
         )
 
-        // Legion
-        let legionAnchor = settings.legionAnchorTime ?? LegionCalculator.shared.createDefaultAnchorTime()
-        let legionEvent = LegionCalculator.shared.getNextEvent(anchorTime: legionAnchor)
+        // Legion - UTC 기반 고정 앵커 사용 (사용자 입력 불필요)
+        let legionEvent = LegionCalculator.shared.getNextEvent()
         let legionData = WidgetEventData.WidgetLegionData(
             nextEventTime: legionEvent.nextEventTime
         )

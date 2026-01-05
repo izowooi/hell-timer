@@ -122,25 +122,23 @@ struct HellTimerWidgetProvider: AppIntentTimelineProvider {
         return TimeInterval(remainingMinutes * 60 + remainingSeconds)
     }
 
-    // MARK: - Legion Calculations (기본값 사용)
+    // MARK: - Legion Calculations (UTC 기반 고정 앵커)
 
     private func getNextLegionTime(from date: Date) -> Date {
-        // 기본 앵커 타임 사용 (25분 단위로 내림)
-        let calendar = Calendar.current
-        let minutes = calendar.component(.minute, from: date)
-        let roundedMinutes = (minutes / 25) * 25
+        // UTC 기반 고정 앵커 타임스탬프
+        // - 검증: 2026-01-05 21:05 KST = 12:05 UTC 기준 역산
+        // - Unix epoch + 1200초 (1970-01-01 00:20:00 UTC) 기준
+        let anchorTimestamp: TimeInterval = 1200
+        let intervalSeconds: TimeInterval = 25 * 60  // 1500초
 
-        var components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
-        components.minute = roundedMinutes
+        let currentTimestamp = date.timeIntervalSince1970
+        let elapsed = currentTimestamp - anchorTimestamp
 
-        guard let anchorTime = calendar.date(from: components) else {
-            return date.addingTimeInterval(25 * 60)
-        }
+        // ceil을 사용하여 다음 이벤트 시간 계산
+        let cyclesPassed = ceil(elapsed / intervalSeconds)
+        let nextEventTimestamp = anchorTimestamp + (cyclesPassed * intervalSeconds)
 
-        // 다음 이벤트 계산
-        let elapsed = date.timeIntervalSince(anchorTime)
-        let cyclesPassed = Int(elapsed / (25 * 60))
-        return anchorTime.addingTimeInterval(Double(cyclesPassed + 1) * 25 * 60)
+        return Date(timeIntervalSince1970: nextEventTimestamp)
     }
 
     // MARK: - Load Cached Data

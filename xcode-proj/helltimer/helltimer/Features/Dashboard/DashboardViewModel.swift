@@ -125,12 +125,8 @@ final class DashboardViewModel: ObservableObject {
     // MARK: - Static Helpers
 
     private static func calculateLegionEvent(settings: UserSettings) -> LegionEvent {
-        guard let anchorTime = settings.legionAnchorTime else {
-            // 앵커 타임이 없으면 기본값 사용
-            let defaultAnchor = LegionCalculator.shared.createDefaultAnchorTime()
-            return LegionCalculator.shared.getNextEvent(anchorTime: defaultAnchor)
-        }
-        return LegionCalculator.shared.getNextEvent(anchorTime: anchorTime)
+        // UTC 기반 고정 앵커 사용 (사용자 입력 불필요)
+        return LegionCalculator.shared.getNextEvent()
     }
 
     private static func calculateWorldBossEvent(settings: UserSettings) -> WorldBossEvent {

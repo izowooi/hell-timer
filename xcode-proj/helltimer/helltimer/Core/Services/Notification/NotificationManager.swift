@@ -165,11 +165,8 @@ final class NotificationManager: ObservableObject {
 
     /// 군단 알림 스케줄링
     private func scheduleLegionNotifications(minutesBefore: [Int]) async {
-        let settings = settingsRepository.settings
-        let anchorTime = settings.legionAnchorTime ?? LegionCalculator.shared.createDefaultAnchorTime()
-
-        // 다음 10개의 군단 이벤트
-        let schedule = LegionCalculator.shared.getUpcomingEvents(count: 10, anchorTime: anchorTime)
+        // UTC 기반 고정 앵커 사용 (사용자 입력 불필요)
+        let schedule = LegionCalculator.shared.getUpcomingEvents(count: 10)
 
         for eventTime in schedule {
             for minutes in minutesBefore {
