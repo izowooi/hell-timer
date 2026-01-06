@@ -106,29 +106,13 @@ struct LegionWidgetData {
 
 struct WorldBossWidgetData {
     let nextEventTime: Date
-    let bossName: String?
-    let location: String?
-    let isFromAPI: Bool
 
     func timeRemaining(from date: Date) -> TimeInterval {
         max(0, nextEventTime.timeIntervalSince(date))
     }
 
-    /// 보스 이름 (없으면 기본값)
-    var displayBossName: String {
-        bossName ?? "알 수 없음"
-    }
-
-    /// 위치 (없으면 기본값)
-    var displayLocation: String {
-        location ?? "위치 미정"
-    }
-
     static let placeholder = WorldBossWidgetData(
-        nextEventTime: Date().addingTimeInterval(7200),
-        bossName: "Wandering Death",
-        location: "Fields of Desecration",
-        isFromAPI: true
+        nextEventTime: Date().addingTimeInterval(7200)
     )
 }
 

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xcodebuild:*)",
+      "WebFetch(domain:helltides.com)",
+      "WebFetch(domain:helltides-7e530-r1.firebaseio.com)",
+      "WebFetch(domain:d4armory.io)"
+    ]
+  }
+}

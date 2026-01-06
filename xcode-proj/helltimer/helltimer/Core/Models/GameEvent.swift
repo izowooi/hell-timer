@@ -64,41 +64,17 @@ struct WorldBossEvent: GameEvent {
     let eventType: EventType = .worldBoss
     let nextEventTime: Date
     let isActive: Bool
-    let bossName: String?
-    let location: String?
-    let isFromAPI: Bool // API에서 가져온 정보인지 여부
     let timeRemaining: TimeInterval // 남은 시간 (초)
 
-    init(nextEventTime: Date, isActive: Bool = false, bossName: String? = nil, location: String? = nil, isFromAPI: Bool = false, timeRemaining: TimeInterval? = nil) {
+    init(nextEventTime: Date, isActive: Bool = false, timeRemaining: TimeInterval? = nil) {
         self.nextEventTime = nextEventTime
         self.isActive = isActive
-        self.bossName = bossName
-        self.location = location
-        self.isFromAPI = isFromAPI
         self.timeRemaining = timeRemaining ?? max(0, nextEventTime.timeIntervalSinceNow)
     }
 
     var timeUntilNext: TimeInterval {
         timeRemaining
     }
-
-    /// 알려진 월드보스 목록
-    static let knownBosses = [
-        "Ashava, the Pestilent",
-        "Avarice, the Gold Cursed",
-        "Wandering Death, Death Given Life",
-        "Azmodan, Lord of Sin"
-    ]
-
-    /// 알려진 스폰 위치 목록
-    static let knownLocations = [
-        "The Crucible": "서리찬 봉우리",
-        "Caen Adar": "스코스글렌",
-        "Saraan Caldera": "건조한 평원",
-        "Seared Basin": "케지스탄",
-        "Fields of Desecration": "하웨자르",
-        "The Cauldron": "나한투"
-    ]
 }
 
 // MARK: - Event Summary

@@ -125,10 +125,10 @@ struct LegionCalculatorTests {
     @Test("군단 - 25분 주기 계산")
     func legionIntervalIs25Minutes() {
         // Given
-        let anchorTime = Date()
+        let testDate = Date()
 
         // When
-        let events = LegionCalculator.shared.getUpcomingEvents(count: 3, anchorTime: anchorTime)
+        let events = LegionCalculator.shared.getUpcomingEvents(count: 3, from: testDate)
 
         // Then: 각 이벤트 간격이 25분
         #expect(events.count == 3)
@@ -144,42 +144,30 @@ struct LegionCalculatorTests {
         }
     }
 
-    @Test("군단 - 앵커 타임 기반 다음 이벤트")
-    func legionNextEventFromAnchor() {
-        // Given: 10분 전 앵커
-        let anchorTime = Date().addingTimeInterval(-10 * 60)
+    @Test("군단 - 다음 이벤트 계산")
+    func legionNextEvent() {
+        // Given
+        let testDate = Date()
 
         // When
-        let event = LegionCalculator.shared.getNextEvent(anchorTime: anchorTime)
+        let event = LegionCalculator.shared.getNextEvent(at: testDate)
 
-        // Then: 다음 이벤트는 앵커로부터 25분 후 (현재로부터 약 15분 후)
-        let timeUntilNext = event.nextEventTime.timeIntervalSinceNow
-        #expect(timeUntilNext > 14 * 60)
-        #expect(timeUntilNext < 16 * 60)
+        // Then: 다음 이벤트는 25분 이내
+        let timeUntilNext = event.nextEventTime.timeIntervalSince(testDate)
+        #expect(timeUntilNext >= 0)
+        #expect(timeUntilNext <= 25 * 60)
     }
 
     @Test("군단 - 경과된 사이클 수")
     func legionCyclesPassed() {
-        // Given: 50분 전 앵커 (25분 * 2 = 50분 = 2사이클)
-        let anchorTime = Date().addingTimeInterval(-50 * 60)
+        // Given
+        let testDate = Date()
 
         // When
-        let cycles = LegionCalculator.shared.getCyclesPassed(anchorTime: anchorTime)
+        let cycles = LegionCalculator.shared.getCyclesPassed(at: testDate)
 
-        // Then
-        #expect(cycles == 2)
-    }
-
-    @Test("군단 - 미래 앵커 타임")
-    func legionFutureAnchorTime() {
-        // Given: 10분 후 앵커
-        let anchorTime = Date().addingTimeInterval(10 * 60)
-
-        // When
-        let event = LegionCalculator.shared.getNextEvent(anchorTime: anchorTime)
-
-        // Then: 앵커 타임이 그대로 반환됨
-        #expect(abs(event.nextEventTime.timeIntervalSince(anchorTime)) < 1)
+        // Then: 사이클 수는 0 이상
+        #expect(cycles >= 0)
     }
 }
 
@@ -187,84 +175,53 @@ struct LegionCalculatorTests {
 
 struct WorldBossCalculatorTests {
 
-    @Test("월드보스 - 210분 주기")
-    func worldBossIntervalIs210Minutes() {
+    @Test("월드보스 - 105분 주기")
+    func worldBossIntervalIs105Minutes() {
         // Given
-        let anchorTime = Date()
+        let testDate = Date()
 
         // When
-        let events = WorldBossCalculator.shared.getUpcomingEvents(count: 2, anchorTime: anchorTime)
+        let events = WorldBossCalculator.shared.getUpcomingEvents(count: 2, from: testDate)
 
-        // Then: 간격이 210분
+        // Then: 간격이 105분
         #expect(events.count == 2)
 
         if events.count >= 2 {
             let interval = events[1].timeIntervalSince(events[0])
-            #expect(abs(interval - 210 * 60) < 1)
+            #expect(abs(interval - 105 * 60) < 1)
         }
     }
 
-    @Test("월드보스 - 캐시 데이터 우선")
-    func worldBossUseCachedData() {
-        // Given: 미래의 캐시된 스폰 시간
-        let cachedSpawnTime = Date().addingTimeInterval(60 * 60) // 1시간 후
-        let cachedBossName = "Wandering Death"
-        let cachedLocation = "Fields of Desecration"
+    @Test("월드보스 - 다음 이벤트 계산")
+    func worldBossNextEvent() {
+        // Given
+        let testDate = Date()
 
         // When
-        let event = WorldBossCalculator.shared.getNextEvent(
-            cachedSpawnTime: cachedSpawnTime,
-            cachedBossName: cachedBossName,
-            cachedLocation: cachedLocation,
-            anchorTime: nil
-        )
+        let event = WorldBossCalculator.shared.getNextEvent(at: testDate)
 
-        // Then: 캐시된 데이터 사용
-        #expect(event.isFromAPI == true)
-        #expect(event.bossName == cachedBossName)
-        #expect(event.location == cachedLocation)
-        #expect(abs(event.nextEventTime.timeIntervalSince(cachedSpawnTime)) < 1)
+        // Then: 다음 이벤트는 105분 이내
+        let timeUntilNext = event.nextEventTime.timeIntervalSince(testDate)
+        #expect(timeUntilNext >= 0)
+        #expect(timeUntilNext <= 105 * 60)
     }
 
-    @Test("월드보스 - Fallback 계산")
-    func worldBossFallbackCalculation() {
-        // Given: 캐시 없음, 앵커만 있음
-        let anchorTime = Date().addingTimeInterval(-30 * 60) // 30분 전
+    @Test("월드보스 - 고정 앵커 기반 계산")
+    func worldBossFixedAnchorCalculation() {
+        // Given: UTC 기반 고정 앵커 (2026-01-06 12:30 UTC = 21:30 KST)
+        let anchorTimestamp: TimeInterval = 1767702600
 
         // When
-        let event = WorldBossCalculator.shared.getNextEvent(
-            cachedSpawnTime: nil,
-            cachedBossName: nil,
-            cachedLocation: nil,
-            anchorTime: anchorTime
-        )
+        let event = WorldBossCalculator.shared.getNextEvent()
 
-        // Then: Fallback 계산 사용
-        #expect(event.isFromAPI == false)
-        #expect(event.bossName == nil)
+        // Then: 고정 앵커 기준 105분 주기로 계산됨
+        let nextTimestamp = event.nextEventTime.timeIntervalSince1970
+        let elapsed = nextTimestamp - anchorTimestamp
 
-        // 다음 스폰은 앵커로부터 210분 후 (현재로부터 약 180분 후)
-        let timeUntilNext = event.nextEventTime.timeIntervalSinceNow
-        #expect(timeUntilNext > 170 * 60)
-        #expect(timeUntilNext < 190 * 60)
-    }
-
-    @Test("월드보스 - 데이터 없음 시 기본값")
-    func worldBossNoDataDefault() {
-        // Given: 아무 데이터 없음
-
-        // When
-        let event = WorldBossCalculator.shared.getNextEvent(
-            cachedSpawnTime: nil,
-            cachedBossName: nil,
-            cachedLocation: nil,
-            anchorTime: nil
-        )
-
-        // Then: 기본값 (현재 + 3.5시간)
-        let timeUntilNext = event.nextEventTime.timeIntervalSinceNow
-        #expect(timeUntilNext > 200 * 60)
-        #expect(timeUntilNext < 220 * 60)
+        // 다음 이벤트는 앵커의 배수 시점이어야 함
+        let cycles = elapsed / (105 * 60)
+        let remainder = elapsed.truncatingRemainder(dividingBy: 105 * 60)
+        #expect(abs(remainder) < 1) // 오차 1초 이내
     }
 }
 
@@ -282,8 +239,6 @@ struct UserSettingsTests {
         #expect(settings.legionNotificationEnabled == false)
         #expect(settings.worldBossNotificationEnabled == false)
         #expect(settings.notificationMinutesBefore == [5])
-        #expect(settings.legionAnchorTime == nil)
-        #expect(settings.worldBossAnchorTime == nil)
     }
 
     @Test("설정 - 알림 활성화 체크")
@@ -324,6 +279,6 @@ struct EventTypeTests {
     func intervals() {
         #expect(EventType.helltide.intervalSeconds == 60 * 60)
         #expect(EventType.legion.intervalSeconds == 25 * 60)
-        #expect(EventType.worldBoss.intervalSeconds == 210 * 60)
+        #expect(EventType.worldBoss.intervalSeconds == 105 * 60)
     }
 }

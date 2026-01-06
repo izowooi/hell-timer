@@ -53,37 +53,6 @@ struct EventCardView: View {
                 }
             }
 
-            // 상세 정보 (월드보스)
-            if showDetails, let worldBoss = event as? WorldBossEvent {
-                Divider()
-
-                if let bossName = worldBoss.bossName {
-                    HStack {
-                        Image(systemName: "person.fill")
-                            .foregroundStyle(.secondary)
-                        Text(bossName)
-                            .font(.subheadline)
-                    }
-                }
-
-                if let location = worldBoss.location {
-                    HStack {
-                        Image(systemName: "mappin.circle.fill")
-                            .foregroundStyle(.secondary)
-                        Text(location)
-                            .font(.subheadline)
-                    }
-                }
-
-                HStack {
-                    Image(systemName: "clock.arrow.circlepath")
-                        .foregroundStyle(.secondary)
-                    Text("다음 스폰 시각")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-
             // 시작 시간 표시
             HStack {
                 Image(systemName: "clock")
@@ -216,10 +185,7 @@ struct CompactEventCardView: View {
 
         EventCardView(
             event: WorldBossEvent(
-                nextEventTime: Date().addingTimeInterval(7200),
-                bossName: "Wandering Death",
-                location: "Fields of Desecration",
-                isFromAPI: true
+                nextEventTime: Date().addingTimeInterval(7200)
             )
         )
     }

@@ -64,58 +64,14 @@ struct LargeWidgetView: View {
                         isActive: false,
                         timeText: formatTimeInterval(entry.worldBoss.timeRemaining(from: entry.date)),
                         nextTime: entry.worldBoss.nextEventTime,
-                        subtitle: worldBossSubtitle
+                        subtitle: nil
                     )
-                }
-
-                Divider()
-
-                // 월드보스 상세 정보
-                if entry.worldBoss.bossName != nil || entry.worldBoss.location != nil {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("월드보스 정보")
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundStyle(.secondary)
-
-                        HStack(spacing: 16) {
-                            if let bossName = entry.worldBoss.bossName {
-                                HStack(spacing: 4) {
-                                    Image(systemName: "person.fill")
-                                        .font(.system(size: 10))
-                                    Text(bossName)
-                                        .font(.system(size: 11))
-                                }
-                                .foregroundStyle(.primary)
-                            }
-
-                            if let location = entry.worldBoss.location {
-                                HStack(spacing: 4) {
-                                    Image(systemName: "mappin.circle.fill")
-                                        .font(.system(size: 10))
-                                    Text(location)
-                                        .font(.system(size: 11))
-                                }
-                                .foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
                 Spacer()
 
                 // 하단 정보
                 HStack {
-                    if !entry.worldBoss.isFromAPI {
-                        HStack(spacing: 4) {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .font(.system(size: 10))
-                            Text("오프라인 모드")
-                                .font(.system(size: 10))
-                        }
-                        .foregroundStyle(.orange)
-                    }
-
                     Spacer()
 
                     Text("업데이트: \(formatTime(entry.date))")
@@ -134,13 +90,6 @@ struct LargeWidgetView: View {
             return formatTimeInterval(remaining)
         }
         return formatTimeInterval(entry.helltide.timeRemaining(from: entry.date))
-    }
-
-    private var worldBossSubtitle: String? {
-        if let name = entry.worldBoss.bossName {
-            return name
-        }
-        return nil
     }
 
     // MARK: - Helpers

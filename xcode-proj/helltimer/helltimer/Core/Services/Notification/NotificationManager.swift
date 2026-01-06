@@ -205,14 +205,8 @@ final class NotificationManager: ObservableObject {
 
     /// 월드보스 알림 스케줄링
     private func scheduleWorldBossNotifications(minutesBefore: [Int]) async {
-        let settings = settingsRepository.settings
-
-        let worldBossEvent = WorldBossCalculator.shared.getNextEvent(
-            cachedSpawnTime: settings.cachedWorldBossSpawnTime,
-            cachedBossName: settings.cachedWorldBossName,
-            cachedLocation: settings.cachedWorldBossLocation,
-            anchorTime: settings.worldBossAnchorTime
-        )
+        // UTC 기반 고정 앵커 사용 (사용자 입력 불필요)
+        let worldBossEvent = WorldBossCalculator.shared.getNextEvent()
 
         // 다음 5개의 월드보스 이벤트
         var eventTimes: [Date] = [worldBossEvent.nextEventTime]
@@ -229,16 +223,7 @@ final class NotificationManager: ObservableObject {
 
                 let content = UNMutableNotificationContent()
                 content.title = "👑 월드보스"
-
-                if let bossName = worldBossEvent.bossName, eventTime == worldBossEvent.nextEventTime {
-                    content.body = "\(bossName) - \(minutes)분 후 스폰!"
-                    if let location = worldBossEvent.location {
-                        content.subtitle = "위치: \(location)"
-                    }
-                } else {
-                    content.body = minutes == 0 ? "지금 스폰됩니다!" : "\(minutes)분 후 스폰 예정"
-                }
-
+                content.body = minutes == 0 ? "지금 스폰됩니다!" : "\(minutes)분 후 스폰 예정"
                 content.sound = .default
                 content.categoryIdentifier = "WORLDBOSS"
 

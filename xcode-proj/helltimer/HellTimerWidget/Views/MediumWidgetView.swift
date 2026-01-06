@@ -50,7 +50,7 @@ struct MediumWidgetView: View {
                     color: Color(red: 1.0, green: 0.53, blue: 0.0),
                     isActive: false,
                     timeText: formatTimeInterval(entry.worldBoss.timeRemaining(from: entry.date)),
-                    subtitleText: entry.worldBoss.bossName ?? nextTimeString(entry.worldBoss.nextEventTime)
+                    subtitleText: nextTimeString(entry.worldBoss.nextEventTime)
                 )
             }
             .padding(.horizontal, 8)

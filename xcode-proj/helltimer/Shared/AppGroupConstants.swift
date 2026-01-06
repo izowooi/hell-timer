@@ -52,8 +52,5 @@ struct WidgetEventData: Codable {
 
     struct WidgetWorldBossData: Codable {
         let nextEventTime: Date
-        let bossName: String?
-        let location: String?
-        let isFromAPI: Bool
     }
 }

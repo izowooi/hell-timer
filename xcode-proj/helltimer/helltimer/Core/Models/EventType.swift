@@ -50,7 +50,7 @@ enum EventType: String, CaseIterable, Codable {
         case .legion:
             return 25 * 60 // 25분
         case .worldBoss:
-            return 210 * 60 // 3시간 30분
+            return 105 * 60 // 1시간 45분
         }
     }
 }

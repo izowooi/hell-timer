@@ -59,10 +59,7 @@ struct HellTimerWidgetProvider: AppIntentTimelineProvider {
                     nextEventTime: cachedData.legion.nextEventTime
                 ),
                 worldBoss: WorldBossWidgetData(
-                    nextEventTime: cachedData.worldBoss.nextEventTime,
-                    bossName: cachedData.worldBoss.bossName,
-                    location: cachedData.worldBoss.location,
-                    isFromAPI: cachedData.worldBoss.isFromAPI
+                    nextEventTime: cachedData.worldBoss.nextEventTime
                 ),
                 configuration: configuration
             )
@@ -80,10 +77,7 @@ struct HellTimerWidgetProvider: AppIntentTimelineProvider {
                 nextEventTime: getNextLegionTime(from: date)
             ),
             worldBoss: WorldBossWidgetData(
-                nextEventTime: date.addingTimeInterval(210 * 60),
-                bossName: nil,
-                location: nil,
-                isFromAPI: false
+                nextEventTime: getNextWorldBossTime(from: date)
             ),
             configuration: configuration
         )
@@ -130,6 +124,25 @@ struct HellTimerWidgetProvider: AppIntentTimelineProvider {
         // - Unix epoch + 1200초 (1970-01-01 00:20:00 UTC) 기준
         let anchorTimestamp: TimeInterval = 1200
         let intervalSeconds: TimeInterval = 25 * 60  // 1500초
+
+        let currentTimestamp = date.timeIntervalSince1970
+        let elapsed = currentTimestamp - anchorTimestamp
+
+        // ceil을 사용하여 다음 이벤트 시간 계산
+        let cyclesPassed = ceil(elapsed / intervalSeconds)
+        let nextEventTimestamp = anchorTimestamp + (cyclesPassed * intervalSeconds)
+
+        return Date(timeIntervalSince1970: nextEventTimestamp)
+    }
+
+    // MARK: - World Boss Calculations (UTC 기반 고정 앵커)
+
+    private func getNextWorldBossTime(from date: Date) -> Date {
+        // UTC 기반 고정 앵커 타임스탬프
+        // - 검증: 2026-01-06 21:30 KST = 12:30 UTC
+        // - Unix timestamp: 1767702600
+        let anchorTimestamp: TimeInterval = 1767702600
+        let intervalSeconds: TimeInterval = 105 * 60  // 6300초 (1시간 45분)
 
         let currentTimestamp = date.timeIntervalSince1970
         let elapsed = currentTimestamp - anchorTimestamp

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "diablo_timer_icon_transparent_skill.png",
+      "filename" : "diablo_timer_icon_clean 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "diablo_timer_icon_transparent_skill 1.png",
+      "filename" : "diablo_timer_icon_clean 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -25,7 +25,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "diablo_timer_icon_transparent_skill 2.png",
+      "filename" : "diablo_timer_icon_clean.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

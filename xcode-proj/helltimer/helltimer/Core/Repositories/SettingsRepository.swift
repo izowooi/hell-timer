@@ -65,41 +65,6 @@ final class SettingsRepository: ObservableObject {
         saveSettings()
     }
 
-    func setLegionAnchorTime(_ date: Date?) {
-        settings.legionAnchorTime = date
-        saveSettings()
-    }
-
-    func setWorldBossAnchorTime(_ date: Date?) {
-        settings.worldBossAnchorTime = date
-        saveSettings()
-    }
-
-    // MARK: - World Boss Cache
-
-    func cacheWorldBossData(name: String?, location: String?, spawnTime: Date?) {
-        settings.cachedWorldBossName = name
-        settings.cachedWorldBossLocation = location
-        settings.cachedWorldBossSpawnTime = spawnTime
-        settings.lastAPIFetchTime = Date()
-        saveSettings()
-    }
-
-    func clearWorldBossCache() {
-        settings.cachedWorldBossName = nil
-        settings.cachedWorldBossLocation = nil
-        settings.cachedWorldBossSpawnTime = nil
-        settings.lastAPIFetchTime = nil
-        saveSettings()
-    }
-
-    /// API 캐시가 유효한지 확인 (3분 이내)
-    func isWorldBossCacheValid() -> Bool {
-        guard let lastFetch = settings.lastAPIFetchTime else { return false }
-        let cacheValidDuration: TimeInterval = 3 * 60 // 3분
-        return Date().timeIntervalSince(lastFetch) < cacheValidDuration
-    }
-
     // MARK: - Reset
 
     /// 설정 초기화

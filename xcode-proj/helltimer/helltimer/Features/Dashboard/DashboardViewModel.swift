@@ -18,18 +18,15 @@ final class DashboardViewModel: ObservableObject {
     // MARK: - Private Properties
 
     private let settingsRepository: SettingsRepository
-    private let worldBossAPIService: WorldBossAPIService
     private var timerCancellable: AnyCancellable?
     private var settingsCancellable: AnyCancellable?
 
     // MARK: - Initialization
 
     init(
-        settingsRepository: SettingsRepository = .shared,
-        worldBossAPIService: WorldBossAPIService = .shared
+        settingsRepository: SettingsRepository = .shared
     ) {
         self.settingsRepository = settingsRepository
-        self.worldBossAPIService = worldBossAPIService
 
         // 초기값 설정
         self.helltideEvent = HelltideCalculator.shared.getCurrentStatus()
@@ -45,9 +42,6 @@ final class DashboardViewModel: ObservableObject {
     /// 이벤트 정보 새로고침
     func refresh() async {
         isLoading = true
-
-        // API에서 월드보스 정보 가져오기
-        await fetchWorldBossFromAPI()
 
         // 모든 이벤트 재계산
         updateAllEvents()
@@ -105,23 +99,6 @@ final class DashboardViewModel: ObservableObject {
         WidgetCenter.shared.reloadAllTimelines()
     }
 
-    private func fetchWorldBossFromAPI() async {
-        do {
-            let response = try await worldBossAPIService.fetchWorldBossInfo()
-
-            if let reports = response.reports, let latestReport = reports.first {
-                settingsRepository.cacheWorldBossData(
-                    name: latestReport.name,
-                    location: latestReport.location,
-                    spawnTime: latestReport.spawnDate
-                )
-            }
-        } catch {
-            // API 실패 시 조용히 fallback 로직 사용 (경고 표시 안함)
-            print("World Boss API failed, using fallback: \(error)")
-        }
-    }
-
     // MARK: - Static Helpers
 
     private static func calculateLegionEvent(settings: UserSettings) -> LegionEvent {
@@ -130,12 +107,8 @@ final class DashboardViewModel: ObservableObject {
     }
 
     private static func calculateWorldBossEvent(settings: UserSettings) -> WorldBossEvent {
-        return WorldBossCalculator.shared.getNextEvent(
-            cachedSpawnTime: settings.cachedWorldBossSpawnTime,
-            cachedBossName: settings.cachedWorldBossName,
-            cachedLocation: settings.cachedWorldBossLocation,
-            anchorTime: settings.worldBossAnchorTime
-        )
+        // UTC 기반 고정 앵커 사용 (사용자 입력 불필요)
+        return WorldBossCalculator.shared.getNextEvent()
     }
 }
 

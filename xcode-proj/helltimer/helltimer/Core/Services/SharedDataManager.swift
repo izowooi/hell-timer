@@ -71,18 +71,10 @@ final class SharedDataManager {
             nextEventTime: legionEvent.nextEventTime
         )
 
-        // World Boss
-        let worldBossEvent = WorldBossCalculator.shared.getNextEvent(
-            cachedSpawnTime: settings.cachedWorldBossSpawnTime,
-            cachedBossName: settings.cachedWorldBossName,
-            cachedLocation: settings.cachedWorldBossLocation,
-            anchorTime: settings.worldBossAnchorTime
-        )
+        // World Boss - UTC 기반 고정 앵커 사용 (사용자 입력 불필요)
+        let worldBossEvent = WorldBossCalculator.shared.getNextEvent()
         let worldBossData = WidgetEventData.WidgetWorldBossData(
-            nextEventTime: worldBossEvent.nextEventTime,
-            bossName: worldBossEvent.bossName,
-            location: worldBossEvent.location,
-            isFromAPI: worldBossEvent.isFromAPI
+            nextEventTime: worldBossEvent.nextEventTime
         )
 
         return WidgetEventData(
