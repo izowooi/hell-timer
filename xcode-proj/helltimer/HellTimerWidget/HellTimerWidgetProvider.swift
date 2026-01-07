@@ -46,26 +46,8 @@ struct HellTimerWidgetProvider: AppIntentTimelineProvider {
     // MARK: - Create Entry
 
     private func createEntry(for configuration: ConfigurationAppIntent, date: Date) -> HellTimerWidgetEntry {
-        // SharedDataManager에서 캐시된 데이터 로드 시도
-        if let cachedData = loadCachedData() {
-            return HellTimerWidgetEntry(
-                date: date,
-                helltide: HelltideWidgetData(
-                    isActive: isHelltideActive(at: date),
-                    nextStartTime: getNextHelltideStart(from: date),
-                    remainingActiveSeconds: getHelltideRemainingTime(at: date)
-                ),
-                legion: LegionWidgetData(
-                    nextEventTime: cachedData.legion.nextEventTime
-                ),
-                worldBoss: WorldBossWidgetData(
-                    nextEventTime: cachedData.worldBoss.nextEventTime
-                ),
-                configuration: configuration
-            )
-        }
-
-        // 캐시가 없으면 로컬 계산
+        // 모든 이벤트를 항상 실시간으로 계산
+        // (캐시된 시간은 과거가 될 수 있으므로 사용하지 않음)
         return HellTimerWidgetEntry(
             date: date,
             helltide: HelltideWidgetData(
