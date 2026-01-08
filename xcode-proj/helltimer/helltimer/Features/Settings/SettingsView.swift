@@ -126,19 +126,6 @@ struct SettingsView: View {
                         Text("1.0.0")
                             .foregroundStyle(.secondary)
                     }
-
-                    Link(destination: URL(string: "https://diablo4.life")!) {
-                        HStack {
-                            Text("데이터 제공")
-                            Spacer()
-                            Text("diablo4.life")
-                                .foregroundStyle(.secondary)
-                            Image(systemName: "arrow.up.right")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    .foregroundStyle(.primary)
                 } header: {
                     Text("정보")
                 }
