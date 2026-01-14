@@ -11,6 +11,7 @@ import UserNotifications
 @main
 struct helltimerApp: App {
     @Environment(\.scenePhase) private var scenePhase
+    @StateObject private var settingsRepository = SettingsRepository.shared
 
     init() {
         // 초기 설정
@@ -21,9 +22,21 @@ struct helltimerApp: App {
     var body: some Scene {
         WindowGroup {
             DashboardView()
+                .preferredColorScheme(preferredColorScheme)
         }
         .onChange(of: scenePhase) { oldPhase, newPhase in
             handleScenePhaseChange(from: oldPhase, to: newPhase)
+        }
+    }
+
+    private var preferredColorScheme: ColorScheme? {
+        switch settingsRepository.settings.appTheme {
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        case .system:
+            return nil
         }
     }
 

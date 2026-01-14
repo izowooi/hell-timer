@@ -5,7 +5,10 @@
       "WebFetch(domain:helltides.com)",
       "WebFetch(domain:helltides-7e530-r1.firebaseio.com)",
       "WebFetch(domain:d4armory.io)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(git -C /Users/izowooi/git/hell-timer ls-files)",
+      "Bash(tree:*)",
+      "Bash(find:*)"
     ]
   }
 }

@@ -11,11 +11,38 @@ struct SettingsView: View {
     @State private var legionNotification: Bool = false
     @State private var worldBossNotification: Bool = false
     @State private var selectedMinutes: Set<Int> = []
+    @State private var selectedTheme: AppTheme = .system
     @State private var showingPermissionAlert: Bool = false
 
     var body: some View {
         NavigationStack {
             Form {
+                // MARK: - 화면 테마
+                Section {
+                    ForEach(AppTheme.allCases, id: \.self) { theme in
+                        HStack {
+                            Image(systemName: theme.iconName)
+                                .foregroundStyle(theme == .light ? .orange : (theme == .dark ? .indigo : .secondary))
+                                .frame(width: 24)
+
+                            Text(theme.displayName)
+
+                            Spacer()
+
+                            if selectedTheme == theme {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.blue)
+                            }
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedTheme = theme
+                        }
+                    }
+                } header: {
+                    Text("화면 테마")
+                }
+
                 // MARK: - 알림 권한 상태
                 Section {
                     HStack {
@@ -125,6 +152,22 @@ struct SettingsView: View {
                         Spacer()
                         Text("1.0.0")
                             .foregroundStyle(.secondary)
+                    }
+
+                    Button {
+                        if let url = URL(string: "https://github.com/izowooi/hell-timer/tree/main/xcode-proj/helltimer") {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        HStack {
+                            Image(systemName: "chevron.left.forwardslash.chevron.right")
+                                .foregroundStyle(.primary)
+                            Text("소스 코드")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Image(systemName: "arrow.up.right.square")
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 } header: {
                     Text("정보")
@@ -241,6 +284,7 @@ struct SettingsView: View {
     private func loadSettings() {
         let settings = repository.settings
 
+        selectedTheme = settings.appTheme
         helltideNotification = settings.helltideNotificationEnabled
         legionNotification = settings.legionNotificationEnabled
         worldBossNotification = settings.worldBossNotificationEnabled
@@ -248,6 +292,7 @@ struct SettingsView: View {
     }
 
     private func saveSettings() {
+        repository.setAppTheme(selectedTheme)
         repository.setHelltideNotification(enabled: helltideNotification)
         repository.setLegionNotification(enabled: legionNotification)
         repository.setWorldBossNotification(enabled: worldBossNotification)

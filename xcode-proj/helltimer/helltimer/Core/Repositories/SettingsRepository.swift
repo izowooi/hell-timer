@@ -65,6 +65,11 @@ final class SettingsRepository: ObservableObject {
         saveSettings()
     }
 
+    func setAppTheme(_ theme: AppTheme) {
+        settings.appTheme = theme
+        saveSettings()
+    }
+
     // MARK: - Reset
 
     /// 설정 초기화

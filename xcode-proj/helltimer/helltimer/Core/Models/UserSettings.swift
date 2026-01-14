@@ -1,7 +1,35 @@
 import Foundation
 
+/// 앱 테마 설정
+enum AppTheme: String, Codable, CaseIterable {
+    case light = "light"
+    case dark = "dark"
+    case system = "system"
+
+    var displayName: String {
+        switch self {
+        case .light: return "라이트"
+        case .dark: return "다크"
+        case .system: return "시스템"
+        }
+    }
+
+    var iconName: String {
+        switch self {
+        case .light: return "sun.max.fill"
+        case .dark: return "moon.fill"
+        case .system: return "circle.lefthalf.filled"
+        }
+    }
+}
+
 /// 사용자 설정 모델
 struct UserSettings: Codable, Equatable {
+    // MARK: - 화면 설정
+
+    /// 앱 테마
+    var appTheme: AppTheme
+
     // MARK: - 알림 설정
 
     /// 지옥물결 알림 활성화
@@ -19,6 +47,7 @@ struct UserSettings: Codable, Equatable {
     // MARK: - 기본값
 
     static let `default` = UserSettings(
+        appTheme: .system,
         helltideNotificationEnabled: false,
         legionNotificationEnabled: false,
         worldBossNotificationEnabled: false,
