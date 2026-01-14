@@ -61,3 +61,4 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 xcode-proj/helltimer/firebase-debug.log
+python-proj/firebase-debug.log
