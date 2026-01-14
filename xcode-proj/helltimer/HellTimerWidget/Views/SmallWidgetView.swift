@@ -2,7 +2,7 @@
 //  SmallWidgetView.swift
 //  HellTimerWidget
 //
-//  Small 위젯 뷰 - 가장 임박한 1개 이벤트 표시
+//  Small 위젯 뷰 - 월드보스 이벤트만 표시
 //
 
 import SwiftUI
@@ -33,13 +33,6 @@ struct SmallWidgetView: View {
 
                 Spacer()
 
-                // 상태 표시
-                if isHelltideActive {
-                    Text("진행 중")
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundStyle(.green)
-                }
-
                 // 타이머
                 Text(timerText)
                     .font(.system(size: 28, weight: .bold, design: .monospaced))
@@ -58,68 +51,22 @@ struct SmallWidgetView: View {
     // MARK: - Computed Properties
 
     private var currentEvent: (displayName: String, iconName: String) {
-        switch entry.nextUpcomingEventType {
-        case .helltide:
-            return ("지옥물결", "flame.fill")
-        case .legion:
-            return ("군단", "person.3.fill")
-        case .worldBoss:
-            return ("월드보스", "crown.fill")
-        }
+        return ("월드보스", "crown.fill")
     }
 
     private var eventColor: Color {
-        switch entry.nextUpcomingEventType {
-        case .helltide:
-            return Color(red: 1.0, green: 0.27, blue: 0.27)
-        case .legion:
-            return Color(red: 0.6, green: 0.27, blue: 1.0)
-        case .worldBoss:
-            return Color(red: 1.0, green: 0.53, blue: 0.0)
-        }
-    }
-
-    private var isHelltideActive: Bool {
-        entry.nextUpcomingEventType == .helltide && entry.helltide.isActive
+        return Color(red: 1.0, green: 0.53, blue: 0.0) // 월드보스 색상 (주황색)
     }
 
     private var timerText: String {
-        let remaining: TimeInterval
-
-        switch entry.nextUpcomingEventType {
-        case .helltide:
-            if entry.helltide.isActive, let activeRemaining = entry.helltide.remainingActiveSeconds {
-                remaining = activeRemaining
-            } else {
-                remaining = entry.helltide.timeRemaining(from: entry.date)
-            }
-        case .legion:
-            remaining = entry.legion.timeRemaining(from: entry.date)
-        case .worldBoss:
-            remaining = entry.worldBoss.timeRemaining(from: entry.date)
-        }
-
+        let remaining = entry.worldBoss.timeRemaining(from: entry.date)
         return formatTimeInterval(remaining)
     }
 
     private var nextTimeText: String {
-        let nextTime: Date
-
-        switch entry.nextUpcomingEventType {
-        case .helltide:
-            if entry.helltide.isActive {
-                return "종료까지"
-            }
-            nextTime = entry.helltide.nextStartTime
-        case .legion:
-            nextTime = entry.legion.nextEventTime
-        case .worldBoss:
-            nextTime = entry.worldBoss.nextEventTime
-        }
-
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
-        return formatter.string(from: nextTime)
+        return formatter.string(from: entry.worldBoss.nextEventTime)
     }
 
     private var backgroundGradient: LinearGradient {
