@@ -196,7 +196,7 @@ struct LargeEventRow: View {
 // MARK: - Preview
 
 #Preview("Large Widget", as: .systemLarge) {
-    HellTimerWidget()
+    SanctuaryWidget()
 } timeline: {
     HellTimerWidgetEntry.placeholder
 }

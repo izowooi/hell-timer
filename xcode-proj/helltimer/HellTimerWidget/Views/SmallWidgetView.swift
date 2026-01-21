@@ -98,7 +98,7 @@ struct SmallWidgetView: View {
 // MARK: - Preview
 
 #Preview("Small Widget", as: .systemSmall) {
-    HellTimerWidget()
+    WorldBossWidget()
 } timeline: {
     HellTimerWidgetEntry.placeholder
 }

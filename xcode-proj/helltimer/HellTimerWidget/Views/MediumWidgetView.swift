@@ -145,7 +145,7 @@ struct EventColumn: View {
 // MARK: - Preview
 
 #Preview("Medium Widget", as: .systemMedium) {
-    HellTimerWidget()
+    SanctuaryWidget()
 } timeline: {
     HellTimerWidgetEntry.placeholder
 }
