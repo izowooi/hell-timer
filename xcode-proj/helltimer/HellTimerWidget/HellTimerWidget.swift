@@ -8,9 +8,28 @@
 import WidgetKit
 import SwiftUI
 
-/// Hell Timer 위젯 정의
-struct HellTimerWidget: Widget {
-    let kind: String = "HellTimerWidget"
+/// Small 위젯 - 월드보스
+struct WorldBossWidget: Widget {
+    let kind: String = "WorldBossWidget"
+
+    var body: some WidgetConfiguration {
+        AppIntentConfiguration(
+            kind: kind,
+            intent: ConfigurationAppIntent.self,
+            provider: HellTimerWidgetProvider()
+        ) { entry in
+            SmallWidgetView(entry: entry)
+                .containerBackground(.fill.tertiary, for: .widget)
+        }
+        .configurationDisplayName("월드보스")
+        .description("월드보스 타이머")
+        .supportedFamilies([.systemSmall])
+    }
+}
+
+/// Medium, Large 위젯 - 성역은지금
+struct SanctuaryWidget: Widget {
+    let kind: String = "SanctuaryWidget"
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(
@@ -21,9 +40,9 @@ struct HellTimerWidget: Widget {
             HellTimerWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("Hell Timer")
+        .configurationDisplayName("성역은지금")
         .description("디아블로4 이벤트 타이머")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([.systemMedium, .systemLarge])
     }
 }
 
@@ -48,20 +67,20 @@ struct HellTimerWidgetEntryView: View {
 
 // MARK: - Previews
 
-#Preview("Small", as: .systemSmall) {
-    HellTimerWidget()
+#Preview("Small - 월드보스", as: .systemSmall) {
+    WorldBossWidget()
 } timeline: {
     HellTimerWidgetEntry.placeholder
 }
 
-#Preview("Medium", as: .systemMedium) {
-    HellTimerWidget()
+#Preview("Medium - 성역은지금", as: .systemMedium) {
+    SanctuaryWidget()
 } timeline: {
     HellTimerWidgetEntry.placeholder
 }
 
-#Preview("Large", as: .systemLarge) {
-    HellTimerWidget()
+#Preview("Large - 성역은지금", as: .systemLarge) {
+    SanctuaryWidget()
 } timeline: {
     HellTimerWidgetEntry.placeholder
 }

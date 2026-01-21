@@ -7,13 +7,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "helltimer"
+            "value" : "Sanctuary Widget"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "지옥종"
+            "value" : "성역위젯"
           }
         }
       }

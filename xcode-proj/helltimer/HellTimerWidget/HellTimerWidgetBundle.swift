@@ -11,6 +11,7 @@ import SwiftUI
 @main
 struct HellTimerWidgetBundle: WidgetBundle {
     var body: some Widget {
-        HellTimerWidget()
+        WorldBossWidget()
+        SanctuaryWidget()
     }
 }
