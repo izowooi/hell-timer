@@ -7,8 +7,8 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "helltimer"
+            "state" : "translated",
+            "value" : "Helltide"
           }
         },
         "ko" : {
@@ -23,6 +23,12 @@
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Helltide"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
@@ -32,5 +38,5 @@
       }
     }
   },
-  "version" : "1.1"
+  "version" : "1.2"
 }
