@@ -25,7 +25,7 @@ struct EventCardView: View {
                 Spacer()
 
                 if event.isActive {
-                    StatusBadge(text: "진행 중", color: .green)
+                    StatusBadge(text: String(localized: "status.inProgress"), color: .green)
                 }
             }
 
@@ -34,7 +34,7 @@ struct EventCardView: View {
                 if event.isActive {
                     if let helltide = event as? HelltideEvent,
                        let remaining = helltide.remainingActiveTime {
-                        Text("종료까지")
+                        Text(String(localized: "status.endsIn"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         Text(formatTimeInterval(remaining))
@@ -43,7 +43,7 @@ struct EventCardView: View {
                             .foregroundStyle(event.eventType.color)
                     }
                 } else {
-                    Text("다음 시작")
+                    Text(String(localized: "status.nextStart"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Text(formatTimeInterval(event.timeUntilNext))
@@ -132,7 +132,7 @@ struct CompactEventCardView: View {
                     .fontWeight(.medium)
 
                 if event.isActive {
-                    Text("진행 중")
+                    Text(String(localized: "status.inProgress"))
                         .font(.caption)
                         .foregroundStyle(.green)
                 } else {

@@ -20,11 +20,11 @@ struct MediumWidgetView: View {
                 // 지옥물결
                 EventColumn(
                     iconName: "flame.fill",
-                    title: "지옥물결",
+                    title: String(localized: "event.helltide"),
                     color: Color(red: 1.0, green: 0.27, blue: 0.27),
                     isActive: entry.helltide.isActive,
                     timeText: helltideTimeText,
-                    subtitleText: entry.helltide.isActive ? "종료까지" : nextTimeString(entry.helltide.nextStartTime)
+                    subtitleText: entry.helltide.isActive ? String(localized: "status.endsIn") : nextTimeString(entry.helltide.nextStartTime)
                 )
 
                 Divider()
@@ -33,7 +33,7 @@ struct MediumWidgetView: View {
                 // 군단
                 EventColumn(
                     iconName: "person.3.fill",
-                    title: "군단",
+                    title: String(localized: "event.legion"),
                     color: Color(red: 0.6, green: 0.27, blue: 1.0),
                     isActive: false,
                     timeText: formatTimeInterval(entry.legion.timeRemaining(from: entry.date)),
@@ -46,7 +46,7 @@ struct MediumWidgetView: View {
                 // 월드보스
                 EventColumn(
                     iconName: "crown.fill",
-                    title: "월드보스",
+                    title: String(localized: "event.worldBoss"),
                     color: Color(red: 1.0, green: 0.53, blue: 0.0),
                     isActive: false,
                     timeText: formatTimeInterval(entry.worldBoss.timeRemaining(from: entry.date)),
@@ -111,7 +111,7 @@ struct EventColumn: View {
 
             // 활성 상태 뱃지
             if isActive {
-                Text("진행 중")
+                Text(String(localized: "status.inProgress"))
                     .font(.system(size: 9, weight: .semibold))
                     .foregroundStyle(.white)
                     .padding(.horizontal, 6)

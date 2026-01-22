@@ -24,7 +24,7 @@ struct DashboardView: View {
                     // 마지막 업데이트 시간
                     HStack {
                         Spacer()
-                        Text("업데이트: \(formatDate(viewModel.lastUpdated))")
+                        Text("\(String(localized: "dashboard.update")) \(formatDate(viewModel.lastUpdated))")
                             .font(.caption2)
                             .foregroundStyle(.tertiary)
                     }
@@ -79,7 +79,7 @@ struct ActiveEventBanner: View {
             HStack {
                 Image(systemName: "exclamationmark.circle.fill")
                     .foregroundStyle(.green)
-                Text("진행 중인 이벤트")
+                Text(String(localized: "dashboard.activeEvents"))
                     .font(.headline)
             }
 
@@ -95,7 +95,7 @@ struct ActiveEventBanner: View {
 
                     if let helltide = event as? HelltideEvent,
                        let remaining = helltide.remainingActiveTime {
-                        Text("종료까지 \(formatTime(remaining))")
+                        Text("\(String(localized: "status.endsIn")) \(formatTime(remaining))")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

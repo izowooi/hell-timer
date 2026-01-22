@@ -8,9 +8,9 @@ enum AppTheme: String, Codable, CaseIterable {
 
     var displayName: String {
         switch self {
-        case .light: return "라이트"
-        case .dark: return "다크"
-        case .system: return "시스템"
+        case .light: return String(localized: "theme.light")
+        case .dark: return String(localized: "theme.dark")
+        case .system: return String(localized: "theme.system")
         }
     }
 

@@ -136,8 +136,8 @@ final class NotificationManager: ObservableObject {
                 guard notificationTime > Date() else { continue }
 
                 let content = UNMutableNotificationContent()
-                content.title = "🔥 지옥물결"
-                content.body = minutes == 0 ? "지금 시작됩니다!" : "\(minutes)분 후 시작됩니다"
+                content.title = String(localized: "notification.helltide.title")
+                content.body = minutes == 0 ? String(localized: "notification.startsNow") : "\(String(localized: "notification.startsInMinutesPrefix"))\(minutes)\(String(localized: "notification.startsInMinutesSuffix"))"
                 content.sound = .default
                 content.categoryIdentifier = "HELLTIDE"
 
@@ -176,8 +176,8 @@ final class NotificationManager: ObservableObject {
                 guard notificationTime > Date() else { continue }
 
                 let content = UNMutableNotificationContent()
-                content.title = "⚔️ 군단 이벤트"
-                content.body = minutes == 0 ? "지금 시작됩니다!" : "\(minutes)분 후 시작됩니다"
+                content.title = String(localized: "notification.legion.title")
+                content.body = minutes == 0 ? String(localized: "notification.startsNow") : "\(String(localized: "notification.startsInMinutesPrefix"))\(minutes)\(String(localized: "notification.startsInMinutesSuffix"))"
                 content.sound = .default
                 content.categoryIdentifier = "LEGION"
 
@@ -222,8 +222,8 @@ final class NotificationManager: ObservableObject {
                 guard notificationTime > Date() else { continue }
 
                 let content = UNMutableNotificationContent()
-                content.title = "👑 월드보스"
-                content.body = minutes == 0 ? "지금 스폰됩니다!" : "\(minutes)분 후 스폰 예정"
+                content.title = String(localized: "notification.worldBoss.title")
+                content.body = minutes == 0 ? String(localized: "notification.spawnsNow") : "\(String(localized: "notification.spawnsInMinutesPrefix"))\(minutes)\(String(localized: "notification.spawnsInMinutesSuffix"))"
                 content.sound = .default
                 content.categoryIdentifier = "WORLDBOSS"
 

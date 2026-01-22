@@ -40,7 +40,7 @@ struct SettingsView: View {
                         }
                     }
                 } header: {
-                    Text("화면 테마")
+                    Text(String(localized: "settings.theme"))
                 }
 
                 // MARK: - 알림 권한 상태
@@ -49,7 +49,7 @@ struct SettingsView: View {
                         Image(systemName: notificationStatusIcon)
                             .foregroundStyle(notificationStatusColor)
 
-                        Text("알림 권한")
+                        Text(String(localized: "settings.notificationPermission"))
 
                         Spacer()
 
@@ -63,7 +63,7 @@ struct SettingsView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "bell.badge")
-                                Text("알림 권한 요청")
+                                Text(String(localized: "settings.requestPermission"))
                             }
                         }
 
@@ -73,20 +73,20 @@ struct SettingsView: View {
                             } label: {
                                 HStack {
                                     Image(systemName: "gear")
-                                    Text("설정에서 권한 변경")
+                                    Text(String(localized: "settings.changeInSettings"))
                                 }
                             }
                         }
                     } else {
                         HStack {
-                            Text("예약된 알림")
+                            Text(String(localized: "settings.scheduledNotifications"))
                             Spacer()
-                            Text("\(notificationManager.pendingCount)개")
+                            Text("\(notificationManager.pendingCount)\(String(localized: "settings.scheduledCountSuffix"))")
                                 .foregroundStyle(.secondary)
                         }
                     }
                 } header: {
-                    Text("알림 상태")
+                    Text(String(localized: "settings.notificationStatus"))
                 }
 
                 // MARK: - 알림 설정
@@ -109,13 +109,13 @@ struct SettingsView: View {
                         isDisabled: !notificationManager.isAuthorized
                     )
                 } header: {
-                    Text("이벤트별 알림")
+                    Text(String(localized: "settings.eventNotifications"))
                 } footer: {
                     if !notificationManager.isAuthorized {
-                        Text("알림을 받으려면 먼저 알림 권한을 허용해주세요")
+                        Text(String(localized: "settings.enablePermissionFirst"))
                             .foregroundStyle(.orange)
                     } else {
-                        Text("활성화된 이벤트에 대해 알림을 받습니다")
+                        Text(String(localized: "settings.enabledEventsNotice"))
                     }
                 }
 
@@ -123,7 +123,7 @@ struct SettingsView: View {
                 Section {
                     ForEach(UserSettings.availableNotificationMinutes, id: \.self) { minutes in
                         HStack {
-                            Text("\(minutes)분 전")
+                            Text("\(minutes)\(String(localized: "settings.minutesBefore"))")
 
                             Spacer()
 
@@ -140,15 +140,15 @@ struct SettingsView: View {
                         .disabled(!notificationManager.isAuthorized)
                     }
                 } header: {
-                    Text("알림 시간")
+                    Text(String(localized: "settings.notificationTime"))
                 } footer: {
-                    Text("이벤트 시작 전 알림을 받을 시간을 선택하세요 (다중 선택 가능)")
+                    Text(String(localized: "settings.selectNotificationTime"))
                 }
 
                 // MARK: - 앱 정보
                 Section {
                     HStack {
-                        Text("버전")
+                        Text(String(localized: "settings.version"))
                         Spacer()
                         Text("1.0.0")
                             .foregroundStyle(.secondary)
@@ -162,7 +162,7 @@ struct SettingsView: View {
                         HStack {
                             Image(systemName: "chevron.left.forwardslash.chevron.right")
                                 .foregroundStyle(.primary)
-                            Text("소스 코드")
+                            Text(String(localized: "settings.sourceCode"))
                                 .foregroundStyle(.primary)
                             Spacer()
                             Image(systemName: "arrow.up.right.square")
@@ -170,28 +170,28 @@ struct SettingsView: View {
                         }
                     }
                 } header: {
-                    Text("정보")
+                    Text(String(localized: "settings.info"))
                 }
 
                 // MARK: - 초기화
                 Section {
-                    Button("모든 알림 취소", role: .destructive) {
+                    Button(String(localized: "settings.cancelAllNotifications"), role: .destructive) {
                         Task {
                             await notificationManager.removeAllNotifications()
                             await notificationManager.updatePendingNotifications()
                         }
                     }
 
-                    Button("설정 초기화", role: .destructive) {
+                    Button(String(localized: "settings.resetSettings"), role: .destructive) {
                         resetSettings()
                     }
                 }
             }
-            .navigationTitle("설정")
+            .navigationTitle(String(localized: "settings.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("완료") {
+                    Button(String(localized: "settings.done")) {
                         saveSettings()
                         dismiss()
                     }
@@ -204,13 +204,13 @@ struct SettingsView: View {
                     await notificationManager.updatePendingNotifications()
                 }
             }
-            .alert("알림 권한", isPresented: $showingPermissionAlert) {
-                Button("설정 열기") {
+            .alert(String(localized: "alert.notificationPermission"), isPresented: $showingPermissionAlert) {
+                Button(String(localized: "alert.openSettings")) {
                     openSettings()
                 }
-                Button("취소", role: .cancel) {}
+                Button(String(localized: "alert.cancel"), role: .cancel) {}
             } message: {
-                Text("알림 권한이 거부되었습니다. 설정에서 알림을 허용해주세요.")
+                Text(String(localized: "alert.permissionDeniedMessage"))
             }
         }
     }
@@ -250,17 +250,17 @@ struct SettingsView: View {
     private var notificationStatusText: String {
         switch notificationManager.authorizationStatus {
         case .authorized:
-            return "허용됨"
+            return String(localized: "permission.authorized")
         case .denied:
-            return "거부됨"
+            return String(localized: "permission.denied")
         case .notDetermined:
-            return "미설정"
+            return String(localized: "permission.notDetermined")
         case .provisional:
-            return "임시 허용"
+            return String(localized: "permission.provisional")
         case .ephemeral:
-            return "임시"
+            return String(localized: "permission.ephemeral")
         @unknown default:
-            return "알 수 없음"
+            return String(localized: "permission.unknown")
         }
     }
 

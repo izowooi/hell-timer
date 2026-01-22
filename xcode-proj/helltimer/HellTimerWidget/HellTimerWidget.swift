@@ -21,8 +21,8 @@ struct WorldBossWidget: Widget {
             SmallWidgetView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("월드보스")
-        .description("월드보스 타이머")
+        .configurationDisplayName(String(localized: "widget.worldBoss.name"))
+        .description(String(localized: "widget.worldBoss.description"))
         .supportedFamilies([.systemSmall])
     }
 }
@@ -40,8 +40,8 @@ struct SanctuaryWidget: Widget {
             HellTimerWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("성역은지금")
-        .description("디아블로4 이벤트 타이머")
+        .configurationDisplayName(String(localized: "widget.sanctuary.name"))
+        .description(String(localized: "widget.sanctuary.description"))
         .supportedFamilies([.systemMedium, .systemLarge])
     }
 }

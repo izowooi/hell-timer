@@ -51,7 +51,7 @@ struct SmallWidgetView: View {
     // MARK: - Computed Properties
 
     private var currentEvent: (displayName: String, iconName: String) {
-        return ("월드보스", "crown.fill")
+        return (String(localized: "event.worldBoss"), "crown.fill")
     }
 
     private var eventColor: Color {

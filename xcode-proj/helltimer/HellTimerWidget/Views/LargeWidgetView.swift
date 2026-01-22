@@ -37,18 +37,18 @@ struct LargeWidgetView: View {
                     // 지옥물결
                     LargeEventRow(
                         iconName: "flame.fill",
-                        title: "지옥물결",
+                        title: String(localized: "event.helltide"),
                         color: Color(red: 1.0, green: 0.27, blue: 0.27),
                         isActive: entry.helltide.isActive,
                         timeText: helltideTimeText,
                         nextTime: entry.helltide.nextStartTime,
-                        subtitle: entry.helltide.isActive ? "종료까지" : nil
+                        subtitle: entry.helltide.isActive ? String(localized: "status.endsIn") : nil
                     )
 
                     // 군단
                     LargeEventRow(
                         iconName: "person.3.fill",
-                        title: "군단",
+                        title: String(localized: "event.legion"),
                         color: Color(red: 0.6, green: 0.27, blue: 1.0),
                         isActive: false,
                         timeText: formatTimeInterval(entry.legion.timeRemaining(from: entry.date)),
@@ -59,7 +59,7 @@ struct LargeWidgetView: View {
                     // 월드보스
                     LargeEventRow(
                         iconName: "crown.fill",
-                        title: "월드보스",
+                        title: String(localized: "event.worldBoss"),
                         color: Color(red: 1.0, green: 0.53, blue: 0.0),
                         isActive: false,
                         timeText: formatTimeInterval(entry.worldBoss.timeRemaining(from: entry.date)),
@@ -74,7 +74,7 @@ struct LargeWidgetView: View {
                 HStack {
                     Spacer()
 
-                    Text("업데이트: \(formatTime(entry.date))")
+                    Text("\(String(localized: "widget.update")) \(formatTime(entry.date))")
                         .font(.system(size: 10))
                         .foregroundStyle(.quaternary)
                 }
@@ -145,7 +145,7 @@ struct LargeEventRow: View {
                         .foregroundStyle(.primary)
 
                     if isActive {
-                        Text("진행 중")
+                        Text(String(localized: "status.inProgress"))
                             .font(.system(size: 9, weight: .semibold))
                             .foregroundStyle(.white)
                             .padding(.horizontal, 6)

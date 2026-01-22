@@ -6,15 +6,15 @@ enum EventType: String, CaseIterable, Codable {
     case legion = "legion"
     case worldBoss = "worldBoss"
 
-    /// 한국어 표시명
+    /// 로컬라이즈된 표시명
     var displayName: String {
         switch self {
         case .helltide:
-            return "지옥물결"
+            return String(localized: "event.helltide")
         case .legion:
-            return "군단"
+            return String(localized: "event.legion")
         case .worldBoss:
-            return "월드보스"
+            return String(localized: "event.worldBoss")
         }
     }
 
