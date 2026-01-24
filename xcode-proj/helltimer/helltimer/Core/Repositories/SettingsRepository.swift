@@ -70,6 +70,11 @@ final class SettingsRepository: ObservableObject {
         saveSettings()
     }
 
+    func setLiveActivity(enabled: Bool) {
+        settings.liveActivityEnabled = enabled
+        saveSettings()
+    }
+
     // MARK: - Reset
 
     /// 설정 초기화

@@ -8,7 +8,8 @@
       "Bash(cat:*)",
       "Bash(git -C /Users/izowooi/git/hell-timer ls-files)",
       "Bash(tree:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(ls:*)"
     ]
   }
 }

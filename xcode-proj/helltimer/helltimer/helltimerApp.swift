@@ -85,6 +85,7 @@ struct helltimerApp: App {
             Task { @MainActor in
                 NotificationManager.shared.onAppBecomeActive()
                 SharedDataManager.shared.updateWidgetData()
+                LiveActivityManager.shared.checkAndStartIfNeeded()
             }
 
         case .background:

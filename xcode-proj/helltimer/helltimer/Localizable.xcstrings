@@ -180,6 +180,40 @@
         }
       }
     },
+    "liveActivity.remaining" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remaining"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "남음"
+          }
+        }
+      }
+    },
+    "liveActivity.startsAt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starts at"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작 시간"
+          }
+        }
+      }
+    },
     "Hell Timer" : {
 
     },
@@ -546,6 +580,23 @@
         }
       }
     },
+    "settings.dynamicIsland" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dynamic Island"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dynamic Island"
+          }
+        }
+      }
+    },
     "settings.info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -559,6 +610,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "정보"
+          }
+        }
+      }
+    },
+    "settings.liveActivity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live Activity"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live Activity"
+          }
+        }
+      }
+    },
+    "settings.liveActivityDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shows 5 min before World Boss"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "월드보스 5분 전부터 표시"
+          }
+        }
+      }
+    },
+    "settings.liveActivityFooter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "World Boss countdown appears on Dynamic Island and lock screen"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "월드보스 카운트다운이 Dynamic Island와 잠금화면에 표시됩니다"
+          }
+        }
+      }
+    },
+    "settings.liveActivityUnsupported" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requires iOS 16.1"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 16.1 필요"
           }
         }
       }

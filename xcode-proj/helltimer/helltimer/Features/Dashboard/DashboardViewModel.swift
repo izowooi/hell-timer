@@ -84,6 +84,9 @@ final class DashboardViewModel: ObservableObject {
 
         // 위젯 데이터 업데이트 (30초마다)
         updateWidgetDataIfNeeded()
+
+        // Live Activity 상태 체크 (월드보스 5분 전)
+        LiveActivityManager.shared.checkAndStartIfNeeded()
     }
 
     private var lastWidgetUpdate: Date?

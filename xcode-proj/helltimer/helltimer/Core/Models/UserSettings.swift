@@ -44,6 +44,11 @@ struct UserSettings: Codable, Equatable {
     /// 알림 시간 (분 단위, 이벤트 시작 전)
     var notificationMinutesBefore: [Int]
 
+    // MARK: - Live Activity 설정
+
+    /// 월드보스 Live Activity 활성화
+    var liveActivityEnabled: Bool
+
     // MARK: - 기본값
 
     static let `default` = UserSettings(
@@ -51,7 +56,8 @@ struct UserSettings: Codable, Equatable {
         helltideNotificationEnabled: false,
         legionNotificationEnabled: false,
         worldBossNotificationEnabled: false,
-        notificationMinutesBefore: [5]
+        notificationMinutesBefore: [5],
+        liveActivityEnabled: false
     )
 
     // MARK: - 편의 속성

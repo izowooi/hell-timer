@@ -6,12 +6,14 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var repository = SettingsRepository.shared
     @StateObject private var notificationManager = NotificationManager.shared
+    @StateObject private var liveActivityManager = LiveActivityManager.shared
 
     @State private var helltideNotification: Bool = false
     @State private var legionNotification: Bool = false
     @State private var worldBossNotification: Bool = false
     @State private var selectedMinutes: Set<Int> = []
     @State private var selectedTheme: AppTheme = .system
+    @State private var liveActivityEnabled: Bool = false
     @State private var showingPermissionAlert: Bool = false
 
     var body: some View {
@@ -143,6 +145,45 @@ struct SettingsView: View {
                     Text(String(localized: "settings.notificationTime"))
                 } footer: {
                     Text(String(localized: "settings.selectNotificationTime"))
+                }
+
+                // MARK: - Live Activity (Dynamic Island)
+                Section {
+                    if liveActivityManager.isLiveActivitySupported {
+                        Toggle(isOn: $liveActivityEnabled) {
+                            HStack(spacing: 12) {
+                                Image(systemName: "platter.filled.bottom.iphone")
+                                    .font(.title3)
+                                    .foregroundStyle(.orange)
+                                    .frame(width: 28)
+
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(String(localized: "settings.liveActivity"))
+                                    Text(String(localized: "settings.liveActivityDescription"))
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                    } else {
+                        HStack(spacing: 12) {
+                            Image(systemName: "platter.filled.bottom.iphone")
+                                .font(.title3)
+                                .foregroundStyle(.secondary)
+                                .frame(width: 28)
+
+                            Text(String(localized: "settings.liveActivity"))
+
+                            Spacer()
+
+                            Text(String(localized: "settings.liveActivityUnsupported"))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                } header: {
+                    Text(String(localized: "settings.dynamicIsland"))
+                } footer: {
+                    Text(String(localized: "settings.liveActivityFooter"))
                 }
 
                 // MARK: - 앱 정보
@@ -289,6 +330,7 @@ struct SettingsView: View {
         legionNotification = settings.legionNotificationEnabled
         worldBossNotification = settings.worldBossNotificationEnabled
         selectedMinutes = Set(settings.notificationMinutesBefore)
+        liveActivityEnabled = settings.liveActivityEnabled
     }
 
     private func saveSettings() {
@@ -297,9 +339,13 @@ struct SettingsView: View {
         repository.setLegionNotification(enabled: legionNotification)
         repository.setWorldBossNotification(enabled: worldBossNotification)
         repository.setNotificationMinutes(Array(selectedMinutes).sorted())
+        repository.setLiveActivity(enabled: liveActivityEnabled)
 
         // 알림 업데이트
         notificationManager.onSettingsChanged()
+
+        // Live Activity 상태 체크
+        liveActivityManager.checkAndStartIfNeeded()
     }
 
     private func toggleMinute(_ minute: Int) {
