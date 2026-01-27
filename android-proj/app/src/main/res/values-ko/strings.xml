@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">헬 타이머</string>
+
+    <!-- Events -->
+    <string name="event_helltide">지옥물결</string>
+    <string name="event_legion">군단</string>
+    <string name="event_world_boss">월드보스</string>
+
+    <!-- Status -->
+    <string name="status_in_progress">진행 중</string>
+    <string name="status_waiting">대기 중</string>
+    <string name="status_ends_in">종료까지</string>
+    <string name="status_next_start">다음 시작</string>
+    <string name="last_updated">마지막 업데이트: %1$s</string>
+
+    <!-- Settings -->
+    <string name="settings">설정</string>
+    <string name="notification_settings">알림 설정</string>
+    <string name="enable_notifications">알림 활성화</string>
+    <string name="notify_before">이벤트 전 알림</string>
+    <string name="minutes_before">%1$d분 전</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_helltide">지옥물결 알림</string>
+    <string name="notification_channel_helltide_desc">지옥물결 이벤트 알림</string>
+    <string name="notification_channel_legion">군단 알림</string>
+    <string name="notification_channel_legion_desc">군단 이벤트 알림</string>
+    <string name="notification_channel_worldboss">월드보스 알림</string>
+    <string name="notification_channel_worldboss_desc">월드보스 소환 알림</string>
+    <string name="notification_starts_now">지금 시작!</string>
+    <string name="notification_starts_in_minutes">%1$d분 후 시작</string>
+
+    <!-- Widget -->
+    <string name="widget_name">헬 타이머 위젯</string>
+    <string name="widget_description">디아블로 4 이벤트 타이머</string>
+</resources>
