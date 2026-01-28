@@ -71,11 +71,22 @@
 			);
 			target = E6AD073B2F07FE1300CE83B0 /* HellTimerWidgetExtension */;
 		};
+		E6DC12D72F2A415D00326574 /* Exceptions for "helltimer" folder in "HellTimerWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Models/WorldBossActivityAttributes.swift,
+				Core/Services/LiveActivity/WorldBossLiveActivity.swift,
+			);
+			target = E6AD073B2F07FE1300CE83B0 /* HellTimerWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E6AD06EA2F07E11500CE83B0 /* helltimer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E6DC12D72F2A415D00326574 /* Exceptions for "helltimer" folder in "HellTimerWidgetExtension" target */,
+			);
 			path = helltimer;
 			sourceTree = "<group>";
 		};

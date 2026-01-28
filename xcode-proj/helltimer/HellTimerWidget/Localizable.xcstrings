@@ -68,6 +68,12 @@
     "Hell Timer 설정" : {
 
     },
+    "liveActivity.remaining" : {
+
+    },
+    "liveActivity.startsAt" : {
+
+    },
     "status.endsIn" : {
       "extractionState" : "manual",
       "localizations" : {

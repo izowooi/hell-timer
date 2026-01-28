@@ -13,5 +13,8 @@ struct HellTimerWidgetBundle: WidgetBundle {
     var body: some Widget {
         WorldBossWidget()
         SanctuaryWidget()
+        if #available(iOS 16.1, *) {
+            WorldBossLiveActivity()
+        }
     }
 }
