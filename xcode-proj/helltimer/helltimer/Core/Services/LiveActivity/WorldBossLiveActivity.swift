@@ -99,29 +99,18 @@ struct WorldBossLockScreenView: View {
                     .font(.headline)
                     .foregroundStyle(.primary)
 
-                HStack(spacing: 4) {
-                    Text(String(localized: "liveActivity.startsAt"))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Text(context.state.eventTime, style: .time)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                Text(context.state.eventTime, style: .time)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
             Spacer()
 
             // 카운트다운
-            VStack(alignment: .trailing, spacing: 2) {
-                Text(context.state.eventTime, style: .timer)
-                    .font(.title.monospacedDigit())
-                    .fontWeight(.bold)
-                    .foregroundStyle(.orange)
-
-                Text(String(localized: "liveActivity.remaining"))
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-            }
+            Text(context.state.eventTime, style: .timer)
+                .font(.title.monospacedDigit())
+                .fontWeight(.bold)
+                .foregroundStyle(.orange)
         }
         .padding()
         .activityBackgroundTint(Color(.systemBackground).opacity(0.8))

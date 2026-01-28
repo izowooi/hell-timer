@@ -180,6 +180,12 @@
         }
       }
     },
+    "Hell Timer" : {
+
+    },
+    "Item at %@" : {
+
+    },
     "liveActivity.remaining" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -213,12 +219,6 @@
           }
         }
       }
-    },
-    "Hell Timer" : {
-
-    },
-    "Item at %@" : {
-
     },
     "notification.helltide.title" : {
       "extractionState" : "manual",
@@ -529,6 +529,23 @@
         }
       }
     },
+    "settings.dynamicIsland" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dynamic Island"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dynamic Island"
+          }
+        }
+      }
+    },
     "settings.enabledEventsNotice" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -576,23 +593,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "이벤트별 알림"
-          }
-        }
-      }
-    },
-    "settings.dynamicIsland" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dynamic Island"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dynamic Island"
           }
         }
       }
