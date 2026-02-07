@@ -47,6 +47,9 @@ class HellTimerWidget : GlanceAppWidget() {
     override val sizeMode = SizeMode.Exact
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
+        val isDark = WidgetUtils.isDarkMode(context)
+        val colors = WidgetUtils.getColors(isDark)
+
         provideContent {
             GlanceTheme {
                 val size = LocalSize.current
@@ -59,7 +62,7 @@ class HellTimerWidget : GlanceAppWidget() {
                 Box(
                     modifier = GlanceModifier
                         .fillMaxSize()
-                        .background(Color(0xFF1E1E1E))
+                        .background(colors.background)
                         .cornerRadius(16.dp)
                         .clickable(actionStartActivity<MainActivity>())
                         .padding(if (isLarge) 16.dp else 12.dp)
@@ -79,6 +82,7 @@ class HellTimerWidget : GlanceAppWidget() {
                             ),
                             nextTimeText = if (isLarge) WidgetUtils.formatTime(helltide.nextEventTime) else null,
                             isLarge = isLarge,
+                            colors = colors,
                             modifier = GlanceModifier.defaultWeight()
                         )
 
@@ -90,6 +94,7 @@ class HellTimerWidget : GlanceAppWidget() {
                             timeText = WidgetUtils.formatInterval(legion.timeRemaining),
                             nextTimeText = if (isLarge) WidgetUtils.formatTime(legion.nextEventTime) else null,
                             isLarge = isLarge,
+                            colors = colors,
                             modifier = GlanceModifier.defaultWeight()
                         )
 
@@ -101,6 +106,7 @@ class HellTimerWidget : GlanceAppWidget() {
                             timeText = WidgetUtils.formatInterval(worldBoss.timeRemaining),
                             nextTimeText = if (isLarge) WidgetUtils.formatTime(worldBoss.nextEventTime) else null,
                             isLarge = isLarge,
+                            colors = colors,
                             modifier = GlanceModifier.defaultWeight()
                         )
                     }
@@ -118,6 +124,7 @@ class HellTimerWidget : GlanceAppWidget() {
         timeText: String,
         nextTimeText: String?,
         isLarge: Boolean,
+        colors: WidgetColors,
         modifier: GlanceModifier = GlanceModifier
     ) {
         Column(
@@ -137,7 +144,7 @@ class HellTimerWidget : GlanceAppWidget() {
                 text = title,
                 style = TextStyle(
                     fontSize = if (isLarge) 13.sp else 10.sp,
-                    color = ColorProvider(Color.White)
+                    color = ColorProvider(colors.text)
                 )
             )
 
@@ -160,7 +167,7 @@ class HellTimerWidget : GlanceAppWidget() {
                     fontSize = if (isLarge) 22.sp else 16.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Monospace,
-                    color = ColorProvider(if (isActive) iconColor else Color.White)
+                    color = ColorProvider(if (isActive) iconColor else colors.inactiveTimerText)
                 )
             )
 
@@ -169,7 +176,7 @@ class HellTimerWidget : GlanceAppWidget() {
                     text = nextTimeText,
                     style = TextStyle(
                         fontSize = 11.sp,
-                        color = ColorProvider(Color(0xFFAAAAAA))
+                        color = ColorProvider(colors.subtitleText)
                     )
                 )
             }

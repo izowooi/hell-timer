@@ -41,6 +41,9 @@ class WorldBossWidget : GlanceAppWidget() {
     override val sizeMode = SizeMode.Exact
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
+        val isDark = WidgetUtils.isDarkMode(context)
+        val colors = WidgetUtils.getColors(isDark)
+
         provideContent {
             GlanceTheme {
                 val size = LocalSize.current
@@ -51,7 +54,7 @@ class WorldBossWidget : GlanceAppWidget() {
                 Box(
                     modifier = GlanceModifier
                         .fillMaxSize()
-                        .background(Color(0xFF1E1E1E))
+                        .background(colors.background)
                         .cornerRadius(16.dp)
                         .clickable(actionStartActivity<MainActivity>())
                         .padding(if (isLarge) 16.dp else 12.dp)
@@ -73,7 +76,7 @@ class WorldBossWidget : GlanceAppWidget() {
                                 style = TextStyle(
                                     fontSize = if (isLarge) 18.sp else 14.sp,
                                     fontWeight = FontWeight.Bold,
-                                    color = ColorProvider(Color.White)
+                                    color = ColorProvider(colors.text)
                                 )
                             )
                         }
@@ -94,7 +97,7 @@ class WorldBossWidget : GlanceAppWidget() {
                             text = WidgetUtils.formatTime(worldBoss.nextEventTime),
                             style = TextStyle(
                                 fontSize = if (isLarge) 14.sp else 11.sp,
-                                color = ColorProvider(Color(0xFFAAAAAA))
+                                color = ColorProvider(colors.subtitleText)
                             )
                         )
                     }
