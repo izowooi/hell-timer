@@ -29,9 +29,10 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun HellTimerTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkThemeOverride: Boolean? = null,
     content: @Composable () -> Unit
 ) {
+    val darkTheme = darkThemeOverride ?: isSystemInDarkTheme()
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
     val view = LocalView.current
 

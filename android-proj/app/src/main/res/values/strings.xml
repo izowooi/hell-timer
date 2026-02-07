@@ -20,6 +20,26 @@
     <string name="notify_before">Notify before event</string>
     <string name="minutes_before">%1$d minutes before</string>
 
+    <!-- Settings Drawer -->
+    <string name="settings_theme">Theme</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System</string>
+    <string name="settings_notification_status">Notification Status</string>
+    <string name="settings_notification_permission">Notification Permission</string>
+    <string name="settings_request_permission">Request Permission</string>
+    <string name="settings_change_in_settings">Change in Settings</string>
+    <string name="permission_authorized">Authorized</string>
+    <string name="permission_denied">Denied</string>
+    <string name="settings_event_notifications">Event Notifications</string>
+    <string name="settings_enable_permission_first">Enable notification permission first</string>
+    <string name="settings_notification_time">Notification Timing</string>
+    <string name="settings_info">App Info</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_source_code">Source Code</string>
+    <string name="settings_cancel_all_notifications">Cancel All Notifications</string>
+    <string name="settings_reset">Reset Settings</string>
+
     <!-- Notifications -->
     <string name="notification_channel_helltide">Helltide Alerts</string>
     <string name="notification_channel_helltide_desc">Notifications for Helltide events</string>

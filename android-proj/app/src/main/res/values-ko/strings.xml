@@ -20,6 +20,26 @@
     <string name="notify_before">이벤트 전 알림</string>
     <string name="minutes_before">%1$d분 전</string>
 
+    <!-- Settings Drawer -->
+    <string name="settings_theme">테마</string>
+    <string name="theme_light">라이트</string>
+    <string name="theme_dark">다크</string>
+    <string name="theme_system">시스템</string>
+    <string name="settings_notification_status">알림 상태</string>
+    <string name="settings_notification_permission">알림 권한</string>
+    <string name="settings_request_permission">권한 요청</string>
+    <string name="settings_change_in_settings">설정에서 변경</string>
+    <string name="permission_authorized">허용됨</string>
+    <string name="permission_denied">거부됨</string>
+    <string name="settings_event_notifications">이벤트 알림</string>
+    <string name="settings_enable_permission_first">먼저 알림 권한을 허용해주세요</string>
+    <string name="settings_notification_time">알림 시간</string>
+    <string name="settings_info">앱 정보</string>
+    <string name="settings_version">버전</string>
+    <string name="settings_source_code">소스 코드</string>
+    <string name="settings_cancel_all_notifications">모든 알림 취소</string>
+    <string name="settings_reset">설정 초기화</string>
+
     <!-- Notifications -->
     <string name="notification_channel_helltide">지옥물결 알림</string>
     <string name="notification_channel_helltide_desc">지옥물결 이벤트 알림</string>
