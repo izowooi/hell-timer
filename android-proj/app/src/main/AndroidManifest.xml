@@ -30,16 +30,30 @@
             </intent-filter>
         </activity>
 
-        <!-- Widget Receiver -->
+        <!-- Widget Receiver: World Boss (Small) -->
         <receiver
-            android:name=".widget.HellTimerWidgetReceiver"
-            android:exported="true">
+            android:name=".widget.WorldBossWidgetReceiver"
+            android:exported="true"
+            android:label="@string/widget_name_small">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info" />
+                android:resource="@xml/widget_info_small" />
+        </receiver>
+
+        <!-- Widget Receiver: All Events (Medium) -->
+        <receiver
+            android:name=".widget.HellTimerWidgetReceiver"
+            android:exported="true"
+            android:label="@string/widget_name_medium">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_medium" />
         </receiver>
 
         <!-- Notification Alarm Receiver -->

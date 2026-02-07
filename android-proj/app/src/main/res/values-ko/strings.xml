@@ -53,4 +53,8 @@
     <!-- Widget -->
     <string name="widget_name">헬 타이머 위젯</string>
     <string name="widget_description">디아블로 4 이벤트 타이머</string>
+    <string name="widget_name_small">월드보스 타이머</string>
+    <string name="widget_description_small">월드보스 카운트다운 표시</string>
+    <string name="widget_name_medium">헬 타이머</string>
+    <string name="widget_description_medium">디아블로 4 전체 이벤트 타이머</string>
 </resources>

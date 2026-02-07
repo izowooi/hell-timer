@@ -53,4 +53,8 @@
     <!-- Widget -->
     <string name="widget_name">Hell Timer Widget</string>
     <string name="widget_description">Shows upcoming Diablo 4 events</string>
+    <string name="widget_name_small">World Boss Timer</string>
+    <string name="widget_description_small">Shows World Boss countdown</string>
+    <string name="widget_name_medium">Hell Timer</string>
+    <string name="widget_description_medium">Shows all Diablo 4 event timers</string>
 </resources>
