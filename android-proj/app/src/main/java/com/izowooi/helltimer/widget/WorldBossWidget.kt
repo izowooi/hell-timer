@@ -13,6 +13,7 @@ import androidx.glance.ImageProvider
 import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
+import androidx.glance.appwidget.AndroidRemoteViews
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.cornerRadius
@@ -27,7 +28,6 @@ import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.padding
 import androidx.glance.layout.size
 import androidx.glance.layout.width
-import androidx.glance.text.FontFamily
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
@@ -43,6 +43,7 @@ class WorldBossWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val isDark = WidgetUtils.isDarkMode(context)
         val colors = WidgetUtils.getColors(isDark)
+        val titleText = context.getString(R.string.event_world_boss)
 
         provideContent {
             GlanceTheme {
@@ -50,6 +51,13 @@ class WorldBossWidget : GlanceAppWidget() {
                 val isLarge = size.height >= 100.dp
                 val currentTime = System.currentTimeMillis() / 1000
                 val worldBoss = WorldBossCalculator.getNextEvent(currentTime)
+
+                val chronometerRv = WidgetUtils.buildChronometerRemoteViews(
+                    context = context,
+                    remainingSeconds = worldBoss.timeRemaining,
+                    textSizeSp = if (isLarge) 36f else 24f,
+                    textColor = 0xFFFF8800.toInt()
+                )
 
                 Box(
                     modifier = GlanceModifier
@@ -72,7 +80,7 @@ class WorldBossWidget : GlanceAppWidget() {
                             )
                             Spacer(modifier = GlanceModifier.width(if (isLarge) 8.dp else 4.dp))
                             Text(
-                                text = "World Boss",
+                                text = titleText,
                                 style = TextStyle(
                                     fontSize = if (isLarge) 18.sp else 14.sp,
                                     fontWeight = FontWeight.Bold,
@@ -83,15 +91,7 @@ class WorldBossWidget : GlanceAppWidget() {
 
                         Spacer(modifier = GlanceModifier.defaultWeight())
 
-                        Text(
-                            text = WidgetUtils.formatInterval(worldBoss.timeRemaining),
-                            style = TextStyle(
-                                fontSize = if (isLarge) 36.sp else 24.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Monospace,
-                                color = ColorProvider(Color(0xFFFF8800))
-                            )
-                        )
+                        AndroidRemoteViews(remoteViews = chronometerRv)
 
                         Text(
                             text = WidgetUtils.formatTime(worldBoss.nextEventTime),

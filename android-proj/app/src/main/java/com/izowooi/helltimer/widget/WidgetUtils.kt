@@ -2,7 +2,11 @@ package com.izowooi.helltimer.widget
 
 import android.content.Context
 import android.content.res.Configuration
+import android.os.SystemClock
+import android.util.TypedValue
+import android.widget.RemoteViews
 import androidx.compose.ui.graphics.Color
+import com.izowooi.helltimer.R
 import com.izowooi.helltimer.data.model.AppTheme
 import com.izowooi.helltimer.data.repository.SettingsRepository
 import kotlinx.coroutines.flow.first
@@ -55,6 +59,21 @@ object WidgetUtils {
         } else {
             String.format("%02d:%02d", minutes, secs)
         }
+    }
+
+    fun buildChronometerRemoteViews(
+        context: Context,
+        remainingSeconds: Long,
+        textSizeSp: Float,
+        textColor: Int
+    ): RemoteViews {
+        val rv = RemoteViews(context.packageName, R.layout.widget_chronometer)
+        val base = SystemClock.elapsedRealtime() + remainingSeconds * 1000
+        rv.setChronometer(R.id.chronometer, base, null, true)
+        rv.setChronometerCountDown(R.id.chronometer, true)
+        rv.setTextViewTextSize(R.id.chronometer, TypedValue.COMPLEX_UNIT_SP, textSizeSp)
+        rv.setTextColor(R.id.chronometer, textColor)
+        return rv
     }
 
     fun formatTime(epochSeconds: Long): String {
