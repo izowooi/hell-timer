@@ -82,6 +82,11 @@
                 android:resource="@xml/widget_info_medium" />
         </receiver>
 
+        <!-- Widget Refresh Receiver -->
+        <receiver
+            android:name=".widget.WidgetRefreshReceiver"
+            android:exported="false" />
+
         <!-- Notification Alarm Receiver -->
         <receiver
             android:name=".notification.EventAlarmReceiver"
