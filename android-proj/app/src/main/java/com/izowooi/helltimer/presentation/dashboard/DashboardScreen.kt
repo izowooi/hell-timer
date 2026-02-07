@@ -56,7 +56,7 @@ fun DashboardScreen(
                 TopAppBar(
                     title = {
                         Text(
-                            text = "Hell Timer",
+                            text = "성역 숙제",
                             style = MaterialTheme.typography.titleLarge
                         )
                     },

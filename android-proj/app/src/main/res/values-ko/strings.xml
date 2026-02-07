@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">헬 타이머</string>
+    <string name="app_name">성역 숙제</string>
 
     <!-- Events -->
     <string name="event_helltide">지옥물결</string>
