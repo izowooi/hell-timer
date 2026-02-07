@@ -62,3 +62,7 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 xcode-proj/helltimer/firebase-debug.log
 python-proj/firebase-debug.log
+/android-proj/.idea
+android-proj/firebase-debug.log
+firebase-debug.log
+xcode-proj/helltimer/firebase-debug.log
