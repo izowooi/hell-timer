@@ -30,7 +30,33 @@
             </intent-filter>
         </activity>
 
-        <!-- Widget Receiver: World Boss (Small) -->
+        <!-- Widget Receiver: World Boss Large (2x2) -->
+        <receiver
+            android:name=".widget.WorldBossWidgetLargeReceiver"
+            android:exported="true"
+            android:label="@string/widget_name_worldboss_large">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_worldboss_large" />
+        </receiver>
+
+        <!-- Widget Receiver: All Events Large (4x2) -->
+        <receiver
+            android:name=".widget.HellTimerWidgetLargeReceiver"
+            android:exported="true"
+            android:label="@string/widget_name_medium_large">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_medium_large" />
+        </receiver>
+
+        <!-- Widget Receiver: World Boss Small (2x1) -->
         <receiver
             android:name=".widget.WorldBossWidgetReceiver"
             android:exported="true"
@@ -43,7 +69,7 @@
                 android:resource="@xml/widget_info_small" />
         </receiver>
 
-        <!-- Widget Receiver: All Events (Medium) -->
+        <!-- Widget Receiver: All Events Small (4x1) -->
         <receiver
             android:name=".widget.HellTimerWidgetReceiver"
             android:exported="true"

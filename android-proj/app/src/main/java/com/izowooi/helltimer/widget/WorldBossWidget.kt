@@ -1,7 +1,6 @@
 package com.izowooi.helltimer.widget
 
 import android.content.Context
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -11,6 +10,7 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.Image
 import androidx.glance.ImageProvider
+import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
@@ -43,6 +43,8 @@ class WorldBossWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             GlanceTheme {
+                val size = LocalSize.current
+                val isLarge = size.height >= 100.dp
                 val currentTime = System.currentTimeMillis() / 1000
                 val worldBoss = WorldBossCalculator.getNextEvent(currentTime)
 
@@ -52,7 +54,7 @@ class WorldBossWidget : GlanceAppWidget() {
                         .background(Color(0xFF1E1E1E))
                         .cornerRadius(16.dp)
                         .clickable(actionStartActivity<MainActivity>())
-                        .padding(12.dp)
+                        .padding(if (isLarge) 16.dp else 12.dp)
                 ) {
                     Column(
                         modifier = GlanceModifier.fillMaxSize(),
@@ -62,15 +64,15 @@ class WorldBossWidget : GlanceAppWidget() {
                             Image(
                                 provider = ImageProvider(R.drawable.ic_worldboss),
                                 contentDescription = null,
-                                modifier = GlanceModifier.size(20.dp),
+                                modifier = GlanceModifier.size(if (isLarge) 28.dp else 20.dp),
                                 colorFilter = ColorFilter.tint(ColorProvider(Color(0xFFFF8800)))
                             )
-                            Spacer(modifier = GlanceModifier.width(4.dp))
+                            Spacer(modifier = GlanceModifier.width(if (isLarge) 8.dp else 4.dp))
                             Text(
                                 text = "World Boss",
                                 style = TextStyle(
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Medium,
+                                    fontSize = if (isLarge) 18.sp else 14.sp,
+                                    fontWeight = FontWeight.Bold,
                                     color = ColorProvider(Color.White)
                                 )
                             )
@@ -81,7 +83,7 @@ class WorldBossWidget : GlanceAppWidget() {
                         Text(
                             text = WidgetUtils.formatInterval(worldBoss.timeRemaining),
                             style = TextStyle(
-                                fontSize = 24.sp,
+                                fontSize = if (isLarge) 36.sp else 24.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace,
                                 color = ColorProvider(Color(0xFFFF8800))
@@ -91,7 +93,7 @@ class WorldBossWidget : GlanceAppWidget() {
                         Text(
                             text = WidgetUtils.formatTime(worldBoss.nextEventTime),
                             style = TextStyle(
-                                fontSize = 11.sp,
+                                fontSize = if (isLarge) 14.sp else 11.sp,
                                 color = ColorProvider(Color(0xFFAAAAAA))
                             )
                         )

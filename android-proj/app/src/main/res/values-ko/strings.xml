@@ -52,9 +52,13 @@
 
     <!-- Widget -->
     <string name="widget_name">헬 타이머 위젯</string>
-    <string name="widget_description">디아블로 4 이벤트 타이머</string>
-    <string name="widget_name_small">월드보스 타이머</string>
+    <string name="widget_description">이벤트 타이머</string>
+    <string name="widget_name_small">월드보스 타이머(초소형)</string>
     <string name="widget_description_small">월드보스 카운트다운 표시</string>
     <string name="widget_name_medium">헬 타이머</string>
-    <string name="widget_description_medium">디아블로 4 전체 이벤트 타이머</string>
+    <string name="widget_description_medium">전체 이벤트 타이머</string>
+    <string name="widget_name_worldboss_large">월드보스 타이머(소형)</string>
+    <string name="widget_description_worldboss_large">큰 화면의 월드보스 카운트다운</string>
+    <string name="widget_name_medium_large">헬 타이머(대형)</string>
+    <string name="widget_description_medium_large">큰 화면의 전체 이벤트 타이머</string>
 </resources>
