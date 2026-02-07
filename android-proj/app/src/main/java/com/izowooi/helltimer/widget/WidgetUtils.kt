@@ -71,7 +71,8 @@ object WidgetUtils {
         val base = SystemClock.elapsedRealtime() + remainingSeconds * 1000
         rv.setChronometer(R.id.chronometer, base, null, true)
         rv.setChronometerCountDown(R.id.chronometer, true)
-        rv.setTextViewTextSize(R.id.chronometer, TypedValue.COMPLEX_UNIT_SP, textSizeSp)
+        val actualSize = if (remainingSeconds >= 3600) textSizeSp * 0.7f else textSizeSp
+        rv.setTextViewTextSize(R.id.chronometer, TypedValue.COMPLEX_UNIT_SP, actualSize)
         rv.setTextColor(R.id.chronometer, textColor)
         return rv
     }
