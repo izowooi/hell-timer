@@ -53,6 +53,7 @@ class EventAlarmReceiver : BroadcastReceiver() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
+            .setNumber(0)
             .build()
 
         if (ActivityCompat.checkSelfPermission(
