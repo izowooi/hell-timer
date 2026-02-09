@@ -61,6 +61,8 @@ object WidgetUtils {
         }
     }
 
+    private const val PRE_REFRESH_BUFFER_SECONDS = 3L
+
     fun buildChronometerRemoteViews(
         context: Context,
         remainingSeconds: Long,
@@ -68,9 +70,15 @@ object WidgetUtils {
         textColor: Int
     ): RemoteViews {
         val rv = RemoteViews(context.packageName, R.layout.widget_chronometer)
-        val base = SystemClock.elapsedRealtime() + remainingSeconds * 1000
-        rv.setChronometer(R.id.chronometer, base, null, true)
-        rv.setChronometerCountDown(R.id.chronometer, true)
+
+        if (remainingSeconds <= PRE_REFRESH_BUFFER_SECONDS) {
+            rv.setChronometer(R.id.chronometer, SystemClock.elapsedRealtime(), "00:00", false)
+        } else {
+            val base = SystemClock.elapsedRealtime() + remainingSeconds * 1000
+            rv.setChronometer(R.id.chronometer, base, null, true)
+            rv.setChronometerCountDown(R.id.chronometer, true)
+        }
+
         val actualSize = if (remainingSeconds >= 3600) textSizeSp * 0.7f else textSizeSp
         rv.setTextViewTextSize(R.id.chronometer, TypedValue.COMPLEX_UNIT_SP, actualSize)
         rv.setTextColor(R.id.chronometer, textColor)

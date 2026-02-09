@@ -61,7 +61,9 @@ class HellTimerWidget : GlanceAppWidget() {
                 val legion = LegionCalculator.getNextEvent(currentTime)
                 val worldBoss = WorldBossCalculator.getNextEvent(currentTime)
 
-                val helltideSeconds = if (helltide.isActive) helltide.remainingActiveTime ?: 0L else helltide.timeRemaining
+                val helltideSeconds = maxOf(0L,
+                    if (helltide.isActive) helltide.remainingActiveTime ?: 0L else helltide.timeRemaining
+                )
                 val timerSizeSp = if (isLarge) 22f else 16f
 
                 Box(

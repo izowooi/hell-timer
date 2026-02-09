@@ -15,14 +15,18 @@ object WidgetRefreshScheduler {
     fun scheduleNextRefresh(context: Context) {
         val currentTime = System.currentTimeMillis() / 1000
 
+        val preRefreshBuffer = 3L
         val nextTimes = mutableListOf<Long>()
 
-        // Helltide: next activation or next deactivation
+        // Helltide: next activation or next deactivation (+ pre-refresh buffer)
         val helltide = HelltideCalculator.getCurrentStatus(currentTime)
         if (helltide.isActive && helltide.remainingActiveTime != null) {
-            nextTimes.add(currentTime + helltide.remainingActiveTime)
+            val deactivationTime = currentTime + helltide.remainingActiveTime
+            nextTimes.add(deactivationTime)
+            nextTimes.add(deactivationTime - preRefreshBuffer)
         }
         nextTimes.add(helltide.nextEventTime)
+        nextTimes.add(helltide.nextEventTime - preRefreshBuffer)
 
         // Legion: next event start
         nextTimes.add(LegionCalculator.getNextEvent(currentTime).nextEventTime)
