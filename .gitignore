@@ -66,3 +66,4 @@ python-proj/firebase-debug.log
 android-proj/firebase-debug.log
 firebase-debug.log
 xcode-proj/helltimer/firebase-debug.log
+*.aab
