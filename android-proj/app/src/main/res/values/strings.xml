@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hell Timer</string>
+    <string name="app_name">Sanctuary Chores</string>
 
     <!-- Events -->
     <string name="event_helltide">Helltide</string>
@@ -51,14 +51,14 @@
     <string name="notification_starts_in_minutes">Starts in %1$d minutes</string>
 
     <!-- Widget -->
-    <string name="widget_name">Hell Timer Widget</string>
+    <string name="widget_name">Sanctuary Chores Widget</string>
     <string name="widget_description">Shows upcoming events</string>
     <string name="widget_name_small">World Boss Timer</string>
     <string name="widget_description_small">Shows World Boss countdown</string>
-    <string name="widget_name_medium">Hell Timer</string>
+    <string name="widget_name_medium">Sanctuary Chores</string>
     <string name="widget_description_medium">Shows all event timers</string>
     <string name="widget_name_worldboss_large">World Boss Timer (Large)</string>
     <string name="widget_description_worldboss_large">World Boss countdown with large display</string>
-    <string name="widget_name_medium_large">Hell Timer (Large)</string>
+    <string name="widget_name_medium_large">Sanctuary Chores (Large)</string>
     <string name="widget_description_medium_large">All event timers with large display</string>
 </resources>

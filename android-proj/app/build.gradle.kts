@@ -11,7 +11,7 @@ android {
         applicationId = "com.izowooi.helltimer"
         minSdk = 30
         targetSdk = 35
-        versionCode = 5
+        versionCode = 6
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
