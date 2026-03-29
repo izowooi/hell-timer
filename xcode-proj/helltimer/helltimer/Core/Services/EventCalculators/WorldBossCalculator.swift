@@ -1,15 +1,15 @@
 import Foundation
 
 /// 월드보스 시간 계산기
-/// - 105분 (1시간 45분) 주기 (글로벌 UTC 기반)
+/// - 210분 (3시간 30분) 주기 (글로벌 UTC 기반)
 /// - 전 세계 동일한 시간에 발생
 final class WorldBossCalculator {
 
     // MARK: - Constants
 
-    /// 월드보스 스폰 주기 (105분 = 1시간 45분)
-    static let intervalMinutes = 105
-    static let intervalSeconds: TimeInterval = 105 * 60  // 6300초
+    /// 월드보스 스폰 주기 (210분 = 3시간 30분)
+    static let intervalMinutes = 210
+    static let intervalSeconds: TimeInterval = 210 * 60  // 12600초
 
     /// UTC 기반 고정 앵커 타임스탬프
     /// - 검증: 2026-01-06 21:30 KST = 12:30 UTC

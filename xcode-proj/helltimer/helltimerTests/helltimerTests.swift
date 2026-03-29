@@ -175,20 +175,20 @@ struct LegionCalculatorTests {
 
 struct WorldBossCalculatorTests {
 
-    @Test("월드보스 - 105분 주기")
-    func worldBossIntervalIs105Minutes() {
+    @Test("월드보스 - 210분 주기")
+    func worldBossIntervalIs210Minutes() {
         // Given
         let testDate = Date()
 
         // When
         let events = WorldBossCalculator.shared.getUpcomingEvents(count: 2, from: testDate)
 
-        // Then: 간격이 105분
+        // Then: 간격이 210분
         #expect(events.count == 2)
 
         if events.count >= 2 {
             let interval = events[1].timeIntervalSince(events[0])
-            #expect(abs(interval - 105 * 60) < 1)
+            #expect(abs(interval - 210 * 60) < 1)
         }
     }
 
@@ -200,10 +200,10 @@ struct WorldBossCalculatorTests {
         // When
         let event = WorldBossCalculator.shared.getNextEvent(at: testDate)
 
-        // Then: 다음 이벤트는 105분 이내
+        // Then: 다음 이벤트는 210분 이내
         let timeUntilNext = event.nextEventTime.timeIntervalSince(testDate)
         #expect(timeUntilNext >= 0)
-        #expect(timeUntilNext <= 105 * 60)
+        #expect(timeUntilNext <= 210 * 60)
     }
 
     @Test("월드보스 - 고정 앵커 기반 계산")
@@ -214,13 +214,13 @@ struct WorldBossCalculatorTests {
         // When
         let event = WorldBossCalculator.shared.getNextEvent()
 
-        // Then: 고정 앵커 기준 105분 주기로 계산됨
+        // Then: 고정 앵커 기준 210분 주기로 계산됨
         let nextTimestamp = event.nextEventTime.timeIntervalSince1970
         let elapsed = nextTimestamp - anchorTimestamp
 
         // 다음 이벤트는 앵커의 배수 시점이어야 함
-        let cycles = elapsed / (105 * 60)
-        let remainder = elapsed.truncatingRemainder(dividingBy: 105 * 60)
+        let cycles = elapsed / (210 * 60)
+        let remainder = elapsed.truncatingRemainder(dividingBy: 210 * 60)
         #expect(abs(remainder) < 1) // 오차 1초 이내
     }
 }
@@ -279,6 +279,6 @@ struct EventTypeTests {
     func intervals() {
         #expect(EventType.helltide.intervalSeconds == 60 * 60)
         #expect(EventType.legion.intervalSeconds == 25 * 60)
-        #expect(EventType.worldBoss.intervalSeconds == 105 * 60)
+        #expect(EventType.worldBoss.intervalSeconds == 210 * 60)
     }
 }
