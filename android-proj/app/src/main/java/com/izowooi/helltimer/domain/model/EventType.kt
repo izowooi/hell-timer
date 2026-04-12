@@ -25,6 +25,6 @@ enum class EventType(
         displayNameResId = R.string.event_world_boss,
         iconResId = R.drawable.ic_worldboss,
         color = Color(0xFFFF8800),
-        intervalSeconds = 6300L
+        intervalSeconds = 12600L
     )
 }

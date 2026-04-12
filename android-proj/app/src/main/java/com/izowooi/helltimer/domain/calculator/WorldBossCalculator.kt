@@ -5,8 +5,8 @@ import kotlin.math.ceil
 
 object WorldBossCalculator {
 
-    const val INTERVAL_MINUTES = 105
-    const val INTERVAL_SECONDS = 105L * 60  // 6300
+    const val INTERVAL_MINUTES = 210
+    const val INTERVAL_SECONDS = 210L * 60  // 12600
 
     // UTC 기반 고정 앵커 타임스탬프 (2026-01-06 12:30 UTC = 21:30 KST)
     const val ANCHOR_TIMESTAMP = 1767702600L
