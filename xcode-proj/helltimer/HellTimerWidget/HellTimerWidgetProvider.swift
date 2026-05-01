@@ -30,15 +30,15 @@ struct HellTimerWidgetProvider: AppIntentTimelineProvider {
         var entries: [HellTimerWidgetEntry] = []
         let currentDate = Date()
 
-        // 다음 1시간 동안 1분마다 엔트리 생성
-        for minuteOffset in 0..<60 {
+        // 다음 2시간 동안 1분마다 엔트리 생성
+        for minuteOffset in 0..<120 {
             let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
             let entry = createEntry(for: configuration, date: entryDate)
             entries.append(entry)
         }
 
-        // 1시간 후 타임라인 갱신
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
+        // 2시간 후 타임라인 갱신
+        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 2, to: currentDate)!
 
         return Timeline(entries: entries, policy: .after(nextUpdate))
     }

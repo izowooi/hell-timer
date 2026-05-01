@@ -208,9 +208,9 @@ final class NotificationManager: ObservableObject {
         // UTC 기반 고정 앵커 사용 (사용자 입력 불필요)
         let worldBossEvent = WorldBossCalculator.shared.getNextEvent()
 
-        // 다음 5개의 월드보스 이벤트
+        // 다음 10개의 월드보스 이벤트 (약 35시간 커버리지)
         var eventTimes: [Date] = [worldBossEvent.nextEventTime]
-        for i in 1..<5 {
+        for i in 1..<10 {
             eventTimes.append(worldBossEvent.nextEventTime.addingTimeInterval(TimeInterval(i) * WorldBossCalculator.intervalSeconds))
         }
 
