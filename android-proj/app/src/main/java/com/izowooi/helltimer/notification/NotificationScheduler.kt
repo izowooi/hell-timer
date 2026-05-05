@@ -20,7 +20,7 @@ class NotificationScheduler(private val context: Context) {
     }
 
     fun scheduleWorldBossNotifications(minutesBefore: List<Int>) {
-        val upcomingEvents = WorldBossCalculator.getUpcomingEvents(5)
+        val upcomingEvents = WorldBossCalculator.getUpcomingEvents(10)
 
         upcomingEvents.forEach { eventTimeSeconds ->
             minutesBefore.forEach { minutes ->
